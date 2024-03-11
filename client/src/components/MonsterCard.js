@@ -1,0 +1,1 @@
+//on click go to combat
