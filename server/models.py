@@ -11,13 +11,13 @@ class Combat(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     player_id = db.Column(db.Integer, db.ForeignKey('player.id'))
-    enemy_id = db.Column(db.Integer, db.ForeignKey('characters.id'))
+    enemy_id = db.Column(db.Integer, db.ForeignKey('enemy.id'))
     rnd = db.Column(db.Integer)
 
     # add relationship
     statuses = db.relationship('Status', back_populates = 'combat')
     player = db.relationship('Player', back_populates = 'combat')
-    enemy = db.relationship('Character', back_populates = 'combat')
+    enemy = db.relationship('Enemy', back_populates = 'combat')
     # Add serialization rules
     serialize_rules = ('-statuses.combat', )
 
@@ -73,7 +73,7 @@ class Character(db.Model, SerializerMixin):
     # add relationships
     statuses = db.relationship('Status', back_populates = 'character')
     known_techs = db.relationship('KnownTech', back_populates = 'character')
-    combat = db.relationship('Combat', uselist=False, back_populates='enemy')
+
     # Add serialization rules
     serialize_rules = ('-statuses.character', '-known_techs.character')
 
@@ -93,6 +93,19 @@ class Player(Character):
 
     __mapper_args__ = {
         'polymorphic_identity': 'player'
+    }
+
+class Enemy(Character):
+    __tablename__ = 'enemy'
+    id = db.Column(db.Integer, db.ForeignKey('characters.id'), primary_key=True)
+    actions = db.Column(db.String)
+
+
+    #relationships
+    combat = db.relationship('Combat', uselist=False, back_populates='enemy')
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'enemy'
     }
 
 class KnownTech(db.Model, SerializerMixin):
