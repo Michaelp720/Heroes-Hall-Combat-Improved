@@ -10,10 +10,14 @@ class Combat(db.Model, SerializerMixin):
     __tablename__ = 'combats'
 
     id = db.Column(db.Integer, primary_key=True)
-    rnd = db.Column(db.Integer) 
+    player_id = db.Column(db.Integer, db.ForeignKey('player.id'))
+    enemy_id = db.Column(db.Integer, db.ForeignKey('enemy.id'))
+    rnd = db.Column(db.Integer)
 
     # add relationship
     statuses = db.relationship('Status', back_populates = 'combat')
+    player = db.relationship('Player', back_populates = 'combat')
+    enemy = db.relationship('Enemy', back_populates = 'combat')
     # Add serialization rules
     serialize_rules = ('-statuses.combat', )
 
@@ -26,14 +30,15 @@ class Status(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     remaining_duration = db.Column(db.Integer)
     affected_stat = db.Column(db.String)
+    amnt = db.Column(db.Integer)
 
     #foreign keys
     combat_id = db.Column(db.Integer, db.ForeignKey('combats.id'))
     character_id = db.Column(db.Integer, db.ForeignKey('characters.id'))
 
     # relationships
-    combat = db.relationship('combat', back_populates = 'statuses')
-    character = db.relationship('character', back_populates = 'statuses')
+    combat = db.relationship('Combat', back_populates = 'statuses')
+    character = db.relationship('Character', back_populates = 'statuses')
     # serialization rules
     serialize_rules = ('-combat.statuses', '-character.statuses' )
 
@@ -50,6 +55,7 @@ class Character(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True) 
     name = db.Column(db.String)
+    type = db.Column(db.String)
     #portrait = db.Column(db.String)
 
     #base stat block
@@ -67,8 +73,40 @@ class Character(db.Model, SerializerMixin):
     # add relationships
     statuses = db.relationship('Status', back_populates = 'character')
     known_techs = db.relationship('KnownTech', back_populates = 'character')
+
     # Add serialization rules
     serialize_rules = ('-statuses.character', '-known_techs.character')
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'character',
+        'polymorphic_on': 'type'
+    }
+
+class Player(Character):
+    __tablename__ = 'player'
+    id = db.Column(db.Integer, db.ForeignKey('characters.id'), primary_key=True)
+    #adv_points = db.Column(db.Integer)
+
+
+    #relationships
+    combat = db.relationship('Combat', uselist=False, back_populates='player')
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'player'
+    }
+
+class Enemy(Character):
+    __tablename__ = 'enemy'
+    id = db.Column(db.Integer, db.ForeignKey('characters.id'), primary_key=True)
+    actions = db.Column(db.String)
+
+
+    #relationships
+    combat = db.relationship('Combat', uselist=False, back_populates='enemy')
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'enemy'
+    }
 
 class KnownTech(db.Model, SerializerMixin):
     __tablename__ = 'known_techs'
@@ -79,7 +117,7 @@ class KnownTech(db.Model, SerializerMixin):
 
     #foreign keys
     character_id = db.Column(db.Integer, db.ForeignKey('characters.id'))
-    tech_id = db.Column(db.Integer, db.ForeignKey('techniques.id'))
+    tech_id = db.Column(db.Integer, db.ForeignKey('techs.id'))
 
     # relationships
     character = db.relationship('Character', back_populates = 'known_techs')
@@ -94,7 +132,7 @@ class Technique(db.Model, SerializerMixin):
     name = db.Column(db.String)
     target = db.Column(db.String)
     duration = db.Column(db.Integer)
-    status = db.Column(db.String)
+    stat = db.Column(db.String)
     amnt = db.Column(db.Integer)
 
     # relationships
