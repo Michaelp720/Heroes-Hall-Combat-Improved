@@ -8,10 +8,24 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db
+from models import *
 
 if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
-        print("Starting seed...")
+        print("deleting data")
+        Character.query.delete()
+        Player.query.delete()
+
+        print("Data deleted. Starting seed...")
         # Seed code goes here!
+        new_players = [
+            Player(
+                name = "Aragorn"
+            )
+        ]
+
+        db.session.add_all(new_players)
+        db.session.commit()
+
+        print("seeded")
