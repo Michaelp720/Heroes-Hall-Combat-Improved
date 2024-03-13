@@ -1,12 +1,38 @@
 //checks session, login, logout
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Switch, Route } from "react-router-dom";
+import {PlayerContext} from '../context/player'
 
 function Landing() {
-  return <h1>Project Client</h1>;
+  const { player, setPlayer } = useContext(PlayerContext)
+
+  useEffect(() => {
+    fetch("/check_session").then((response) => {
+      if (response.ok) {
+        response.json().then((player) => setPlayer(player));
+      }
+    });
+  }, []);
+
+  function handleLogout(){
+    fetch("/logout", {
+      method: "DELETE",
+    })
+  }
+
+  if (player) {
+    return(
+      <div>
+        <h2>Welcome, {player.name}!</h2>
+        <button onClick={handleLogout}>Logout</button>
+        </div>
+    )
+  } 
+  else {
+    return <h2>Link to Login</h2>;
+  }
   
 }
 
 export default Landing;
-

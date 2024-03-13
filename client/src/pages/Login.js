@@ -21,7 +21,6 @@ function Login() {
         r.json().then((player) => setPlayer(player));
       }
     });
-    console.log(player.name)
   }
 
   return (
