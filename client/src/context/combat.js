@@ -13,3 +13,7 @@ function CombatProvider({ children }){
 }
 
 export { CombatContext, CombatProvider }
+
+//import {CombatContext} from '../context/combat'
+
+//const { combat, setCombat } = useContext(CombatContext)

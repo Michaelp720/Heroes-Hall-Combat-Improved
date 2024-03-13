@@ -26,10 +26,9 @@ class Login(Resource):
             Player.name == request.get_json()['name']
         ).first()
         if player:
-            #session['player_id'] = player.id
+            session['player_id'] = player.id
             response = make_response(player.to_dict(), 200)
         else:
-            print("Player not found") #why doesnt this print
             response = make_response({}, 404)
         
         return response

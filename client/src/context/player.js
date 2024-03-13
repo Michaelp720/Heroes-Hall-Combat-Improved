@@ -13,3 +13,7 @@ function PlayerProvider({ children }){
 }
 
 export { PlayerContext, PlayerProvider }
+
+//import {PlayerContext} from '../context/player'
+
+//const { player, setPlayer } = useContext(PlayerContext)
