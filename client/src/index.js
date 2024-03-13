@@ -6,17 +6,20 @@ import About from './pages/About'
 import Login from './pages/Login'
 import "./index.css";
 import { createRoot } from "react-dom/client";
+import { PlayerProvider } from './context/player';
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
   <Router>
+    <PlayerProvider>
     <Switch>
       <Route exact path="/" component={Landing} />
       <Route exact path="/ventures" component={VenturesContainer} />
       <Route exact path="/about" component={About} />
       <Route exact path="/login" component={Login} />
     </Switch>
+    </PlayerProvider>
   </Router>
 );

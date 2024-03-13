@@ -1,11 +1,12 @@
 //create a new character!
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import {PlayerContext} from '../context/player'
 import { Switch, Route } from "react-router-dom";
 
 function Login() {
   const [name, setPlayername] = useState("");
-  const [player, setPlayer] = useState(null);
+  const { player, setPlayer } = useContext(PlayerContext)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -20,6 +21,7 @@ function Login() {
         r.json().then((player) => setPlayer(player));
       }
     });
+    console.log(player.name)
   }
 
   return (
