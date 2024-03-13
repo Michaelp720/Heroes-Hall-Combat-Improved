@@ -1,10 +1,12 @@
+//show how to play and about blurb
+
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
-function Home() {
-  return <h1>Project Client</h1>;
+function About() {
+  return <h1>About Page</h1>;
   
 }
 
-export default Home;
+export default About;
 

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 4e8e7895cce2
+Revision ID: 9199e678a11d
 Revises: 
-Create Date: 2024-03-11 17:11:00.631854
+Create Date: 2024-03-13 13:14:18.217375
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4e8e7895cce2'
+revision = '9199e678a11d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,7 +30,8 @@ def upgrade():
     sa.Column('temp_pwr', sa.Integer(), nullable=True),
     sa.Column('temp_def', sa.Integer(), nullable=True),
     sa.Column('order', sa.Integer(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
     )
     op.create_table('techs',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -39,6 +40,12 @@ def upgrade():
     sa.Column('duration', sa.Integer(), nullable=True),
     sa.Column('stat', sa.String(), nullable=True),
     sa.Column('amnt', sa.Integer(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('enemy',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('actions', sa.String(), nullable=True),
+    sa.ForeignKeyConstraint(['id'], ['characters.id'], name=op.f('fk_enemy_id_characters')),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('known_techs',
@@ -61,7 +68,7 @@ def upgrade():
     sa.Column('player_id', sa.Integer(), nullable=True),
     sa.Column('enemy_id', sa.Integer(), nullable=True),
     sa.Column('rnd', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['enemy_id'], ['characters.id'], name=op.f('fk_combats_enemy_id_characters')),
+    sa.ForeignKeyConstraint(['enemy_id'], ['enemy.id'], name=op.f('fk_combats_enemy_id_enemy')),
     sa.ForeignKeyConstraint(['player_id'], ['player.id'], name=op.f('fk_combats_player_id_player')),
     sa.PrimaryKeyConstraint('id')
     )
@@ -85,6 +92,7 @@ def downgrade():
     op.drop_table('combats')
     op.drop_table('player')
     op.drop_table('known_techs')
+    op.drop_table('enemy')
     op.drop_table('techs')
     op.drop_table('characters')
     # ### end Alembic commands ###

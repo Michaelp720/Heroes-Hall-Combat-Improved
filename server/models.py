@@ -54,7 +54,7 @@ class Character(db.Model, SerializerMixin):
     __tablename__ = 'characters'
 
     id = db.Column(db.Integer, primary_key=True) 
-    name = db.Column(db.String)
+    name = db.Column(db.String, unique=True)
     type = db.Column(db.String)
     #portrait = db.Column(db.String)
 
