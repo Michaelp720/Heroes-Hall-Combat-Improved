@@ -16,6 +16,7 @@ if __name__ == '__main__':
         print("deleting data")
         Character.query.delete()
         Player.query.delete()
+        Enemy.query.delete()
 
         print("Data deleted. Starting seed...")
         # Seed code goes here!
@@ -26,6 +27,15 @@ if __name__ == '__main__':
         ]
 
         db.session.add_all(new_players)
+        db.session.commit()
+
+        new_enemies = [
+            Enemy(
+                name = "Balewolf"
+            )
+        ]
+
+        db.session.add_all(new_enemies)
         db.session.commit()
 
         print("seeded")
