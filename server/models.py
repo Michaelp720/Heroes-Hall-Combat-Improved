@@ -133,6 +133,7 @@ class Technique(db.Model, SerializerMixin):
     target = db.Column(db.String)
     duration = db.Column(db.Integer)
     stat = db.Column(db.String)
+    modifier = db.Column(db.Integer)
     amnt = db.Column(db.Integer)
 
     # relationships
