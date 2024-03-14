@@ -1,7 +1,14 @@
-//show Tech
-//Button to use Tech in combat if player
+
+//show Tech and effects
 
 
-//Fetches
+function TechCard({ tech }){
 
-//State - combat, character
+    return(
+        <div>
+            <h3>Tech</h3>
+        </div>
+    )
+}
+
+export default TechCard;
