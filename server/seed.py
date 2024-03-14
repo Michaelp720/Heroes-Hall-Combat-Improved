@@ -41,6 +41,7 @@ if __name__ == '__main__':
         new_enemies = [
             Enemy(
                 id = 2,
+                actions = "113",
                 name = "Balewolf",
                 max_hp = 10,
                 base_pwr = 4,
@@ -91,7 +92,16 @@ if __name__ == '__main__':
                 duration = 0,
                 stat = "hp",
                 modifier = 0,
-                amnt = 3 #)pwr +3
+                amnt = 3 #0pwr +3
+            ),
+            Technique(
+                id = 5,
+                name = "Sprint",
+                target = "self",
+                duration = 0,
+                stat = "order",
+                modifier = 0,
+                amnt = 1
             )
         ]
 
@@ -133,6 +143,13 @@ if __name__ == '__main__':
                 rnk = 0,
                 character_id = 2,
                 tech_id = 2
+            ),
+            KnownTech(
+                id = 6,
+                slot = 4,
+                rnk = 0,
+                character_id = 1,
+                tech_id = 5
             )
         ]
 
