@@ -133,9 +133,23 @@ class Technique(db.Model, SerializerMixin):
     target = db.Column(db.String)
     duration = db.Column(db.Integer)
     stat = db.Column(db.String)
+    modifier = db.Column(db.Integer)
     amnt = db.Column(db.Integer)
 
     # relationships
     known_techs = db.relationship('KnownTech', back_populates = 'tech')
     # Add serialization rules
     serialize_rules = ('-known_techs.tech', )
+
+    @validates('target')
+    def validate_description(self, key, value):
+        if value != 'self' and value != 'enemy':
+            raise ValueError("Technique must target 'self' or 'enemy'")
+        return value
+
+    @validates('stat')
+    def validate_description(self, key, value):
+        possible_stats = ["hp", "pwr", "def", "order"]
+        if value not in possible_stats:
+            raise ValueError("Technique must affect a stat")
+        return value

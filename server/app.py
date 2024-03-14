@@ -9,7 +9,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import Combat, Status, Character, Player, KnownTech, Technique
+from models import Combat, Status, Character, Player, KnownTech, Technique, Enemy
 from gameplay_methods import begin_combat
 
 
@@ -49,9 +49,60 @@ class CheckSession(Resource):
             response = make_response({}, 401)
         return response
 
+########GET CHARACTER INFO########
+
+class GetCharacter(Resource):
+    def get(self, id):
+        character = Character.query.filter(Character.id == id).first()
+        if character:
+            response = make_response(character.to_dict(), 200)
+        else:
+            response = make_response({}, 404)
+
+        return response
+
+class CharsKnownTechs(Resource):
+    def get(self, char_id):
+        chars_known_techs = KnownTech.query.filter(KnownTech.character_id == char_id).all()
+        known_techs_dict = [known_tech.to_dict() for known_tech in chars_known_techs]
+        response = make_response(known_techs_dict, 200)
+        return response
+
+class CharsStatuses(Resource):
+    def get(self, char_id):
+        chars_statuses = Status.query.filter(Status.character_id == char_id).all()
+        statuses_dict = [status.to_dict() for status in chars_statuses]
+        response = make_response(statuses_dict, 200)
+        return response
+
+class CurrentCombat(Resource):
+    def get(self):
+        combat = Combat.query.first()
+        response = make_response(combat.to_dict(), 200)
+        return response
+
+class Monsters(Resource):
+    def get(self):
+        monsters = Enemy.query.all()
+        monsters_dict = [monster.to_dict() for monster in monsters]
+        response = make_response(monsters_dict, 200)
+        print(monsters)
+        return response
+
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
+
+###Character Info###
+api.add_resource(GetCharacter, '/character/<int:id>')
+api.add_resource(CharsKnownTechs, '/known_techs/<int:char_id>')
+api.add_resource(CharsStatuses, '/statuses/<int:char_id>')
+
+###Combat###
+api.add_resource(CurrentCombat, '/combat')
+
+api.add_resource(Monsters, '/monsters')
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
