@@ -1,17 +1,30 @@
 //group of MonsterCards over a map
-import React, { useEffect, useState, useContext } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Button, Segment, Header } from 'semantic-ui-react'
 import MonsterCard from "../components/MonsterCard"
 
 function VenturesContainer() {
+  const [monsters, setMonsters] = useState([]);
 
   //fetch enemies- return monster card for each
+  useEffect(() => {
+    fetch(`/monsters`)
+        .then(response => response.json())
+        .then(data => setMonsters(data))
+  }, [])
+
+function handleClick(){
+  console.log(monsters)
+}
 
   return (
     //MonsterCard for each enemy
-    <div>
-      <h1>yeee</h1>
-    </div>
+    <Segment>
+      <Header as ='h2' onClick = {handleClick}>Ventures</Header>
+      {monsters.map((monster) => (
+        <MonsterCard monster = {monster}/>
+      ))}
+    </Segment>
   )
 }
 

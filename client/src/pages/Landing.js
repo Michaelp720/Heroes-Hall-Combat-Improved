@@ -2,9 +2,12 @@
 
 import React, { useEffect, useState, useContext } from "react";
 import {PlayerContext} from '../context/player'
+import { Button, Segment, Header } from 'semantic-ui-react'
+import { useNavigate } from "react-router-dom";
 
 function Landing() {
   const { player, setPlayer } = useContext(PlayerContext)
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/check_session").then((response) => {
@@ -20,16 +23,29 @@ function Landing() {
     })
   }
 
+  function navLogin(){
+    navigate('/login')
+  }
+
+  function navVenture(){
+    navigate('/ventures')
+  }
+
   if (player) {
     return(
-      <div>
-        <h2>Welcome, {player.name}!</h2>
-        <button onClick={handleLogout}>Logout</button>
-        </div>
+      <Segment>
+        <Header>Welcome, {player.name}!</Header>
+        <Button onClick={handleLogout}>Logout</Button>
+        <Button onClick={navVenture}>Begin Adventure!</Button>
+      </Segment>
     )
   } 
   else {
-    return <h2>Link to Login</h2>;
+    return (
+      <Segment>
+        <Button onClick={navLogin}>Login</Button>
+      </Segment>
+    )
   }
   
 }

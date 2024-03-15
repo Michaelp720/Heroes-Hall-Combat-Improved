@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import KnownTechsContainer from "./KnownTechsContainer"
+import { Button, Segment, Header } from 'semantic-ui-react'
+
 
 //shows name, portrait, stat block
 //stat block updates with statuses- stretch goal
@@ -15,9 +17,10 @@ function CharacterContainer({ character }) {
     return (
         //name, stat block
         //knowntechs container- pass character
-      <div>
-        <h1>Character</h1>
-      </div>
+      <Segment>
+        <Header as= 'h3'>{character.name}</Header>
+        <KnownTechsContainer character={character}/>
+      </Segment>
     )
   }
   
