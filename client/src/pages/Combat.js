@@ -24,6 +24,7 @@ function Combat() {
         //StatusesContainer passing combat.enemy
         <div>
             <h1>Combat Page: {combat.enemy_id}</h1>
+            <CharacterContainer></CharacterContainer>
         </div>
     )
   }

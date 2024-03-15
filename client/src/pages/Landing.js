@@ -1,7 +1,6 @@
 //checks session, login, logout
 
 import React, { useEffect, useState, useContext } from "react";
-import { Switch, Route } from "react-router-dom";
 import {PlayerContext} from '../context/player'
 
 function Landing() {
