@@ -5,16 +5,16 @@ import { useNavigate } from "react-router-dom";
 //preview of Monster
 //on click go to combat
 // prop - {monster}
-function MonsterCard() {
-    //const { player, setPlayer } = useContext(PlayerContext)
+function MonsterCard({monster}) {
+    const { player, setPlayer } = useContext(PlayerContext)
     const { combat, setCombat } = useContext(CombatContext)
     const navigate = useNavigate();
     //monster is an Enemy object
     //on click post combat with player and monster, then navigate to combat page
     
     //testing
-    const player = {id:1}
-    const monster = {id:2}
+    //const player = {id:1}
+    //const monster = {id:2}
 
     function startCombat(){
         fetch(`/combat/${player.id}/${monster.id}`, {
