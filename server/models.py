@@ -13,6 +13,7 @@ class Combat(db.Model, SerializerMixin):
     player_id = db.Column(db.Integer, db.ForeignKey('player.id'))
     enemy_id = db.Column(db.Integer, db.ForeignKey('enemy.id'))
     rnd = db.Column(db.Integer)
+    turn = db.Column(db.Integer) #must be 1 or 2
 
     # add relationship
     statuses = db.relationship('Status', back_populates = 'combat')
@@ -46,7 +47,7 @@ class Status(db.Model, SerializerMixin):
     # @validates('affected_stat')
     # def validate_affected_stat(self, key, value):
     #     stats = [] #List of possible stats
-    #     if value not in list:
+    #     if value not in stats:
     #         raise ValueError("error message")
     #     return value
 
@@ -102,6 +103,7 @@ class Enemy(Character):
     __tablename__ = 'enemy'
     id = db.Column(db.Integer, db.ForeignKey('characters.id'), primary_key=True)
     actions = db.Column(db.String)
+    #crnt_action = db.Column(db.Integer)
 
 
     #relationships
@@ -149,8 +151,8 @@ class Technique(db.Model, SerializerMixin):
 
     @validates('target')
     def validate_description(self, key, value):
-        if value != 'self' and value != 'enemy':
-            raise ValueError("Technique must target 'self' or 'enemy'")
+        if value != 'self' and value != 'opponent':
+            raise ValueError("Technique must target 'self' or 'opponent'")
         return value
 
     @validates('stat')

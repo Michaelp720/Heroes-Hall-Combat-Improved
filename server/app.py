@@ -96,10 +96,12 @@ class StartCombat(Resource):
         new_combat = Combat(
             player_id = player_id,
             enemy_id = enemy_id,
-            rnd = 1
+            rnd = 1,
+            turn = 1
         )
         db.session.add(new_combat)
         db.session.commit()
+        begin_combat()
 
         response = make_response(new_combat.to_dict(), 201)
         return response
