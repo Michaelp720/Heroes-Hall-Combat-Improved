@@ -19,7 +19,7 @@ class Combat(db.Model, SerializerMixin):
     player = db.relationship('Player', back_populates = 'combat')
     enemy = db.relationship('Enemy', back_populates = 'combat')
     # Add serialization rules
-    serialize_rules = ('-statuses.combat', )
+    serialize_rules = ('-statuses.combat', '-player.combat', '-enemy.combat', '-player.statuses', '-enemy.statuses', '-player.known_techs', '-enemy.known_techs' )
 
     def __repr__(self):
         return f'<Hero {self.id}>'
@@ -40,7 +40,7 @@ class Status(db.Model, SerializerMixin):
     combat = db.relationship('Combat', back_populates = 'statuses')
     character = db.relationship('Character', back_populates = 'statuses')
     # serialization rules
-    serialize_rules = ('-combat.statuses', '-character.statuses' )
+    serialize_rules = ('-combat.statuses', '-character.statuses', '-combat.player', '-combat.enemy', '-character.combat', '-character.known_techs' )
 
     # add validation
     # @validates('affected_stat')
@@ -91,6 +91,9 @@ class Player(Character):
     #relationships
     combat = db.relationship('Combat', uselist=False, back_populates='player')
 
+    # Add serialization rules
+    serialize_rules = ('-combat.player', )
+
     __mapper_args__ = {
         'polymorphic_identity': 'player'
     }
@@ -103,6 +106,9 @@ class Enemy(Character):
 
     #relationships
     combat = db.relationship('Combat', uselist=False, back_populates='enemy')
+
+    # Add serialization rules
+    serialize_rules = ('-combat.enemy', )
 
     __mapper_args__ = {
         'polymorphic_identity': 'enemy'
