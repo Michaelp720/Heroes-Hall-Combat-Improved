@@ -16,6 +16,8 @@ import {CombatContext} from '../context/combat'
 function Combat() {
     const { combat, setCombat } = useContext(CombatContext)
 
+
+
     return (
         //round number
         //CharacterContainer passing combat.player as prop 
@@ -23,8 +25,9 @@ function Combat() {
         //CharacterContainer passing combat.enemy as prop
         //StatusesContainer passing combat.enemy
         <div>
-            <h1>Combat Page: {combat.enemy_id}</h1>
-            <CharacterContainer></CharacterContainer>
+            <RoundCard/>
+            <CharacterContainer character={combat.player}/>
+            <CharacterContainer character={combat.enemy}/>
         </div>
     )
   }

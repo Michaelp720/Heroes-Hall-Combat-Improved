@@ -10,7 +10,7 @@ from flask_restful import Resource
 from config import app, db, api
 # Add your model imports
 from models import Combat, Status, Character, Player, KnownTech, Technique, Enemy
-from gameplay_methods import begin_combat
+from gameplay_methods import begin_combat, player_action
 
 
 # Views go here!
@@ -75,10 +75,33 @@ class CharsStatuses(Resource):
         response = make_response(statuses_dict, 200)
         return response
 
+class GetTech(Resource):
+    def get(self, id):
+        tech = Technique.query.filter(Technique.id == id).first()
+        if tech:
+            response = make_response(tech.to_dict(), 200)
+        else:
+            response = make_response({}, 404)
+
+        return response 
+
 class CurrentCombat(Resource):
     def get(self):
         combat = Combat.query.first()
         response = make_response(combat.to_dict(), 200)
+        return response
+
+class StartCombat(Resource):
+    def post(self, player_id, enemy_id):
+        new_combat = Combat(
+            player_id = player_id,
+            enemy_id = enemy_id,
+            rnd = 1
+        )
+        db.session.add(new_combat)
+        db.session.commit()
+
+        response = make_response(new_combat.to_dict(), 201)
         return response
 
 class Monsters(Resource):
@@ -86,8 +109,23 @@ class Monsters(Resource):
         monsters = Enemy.query.all()
         monsters_dict = [monster.to_dict() for monster in monsters]
         response = make_response(monsters_dict, 200)
-        print(monsters)
         return response
+
+# class GetMonster(Resource):
+#     def get(self, id):
+#         monster = Enemy.query.filer(Enemy.id == id).first()
+#         response = make_response(monster.to_dict, 200)
+#         return response
+
+#######GAMEPLAY########
+class Action(Resource):
+    def post(self):
+        data = request.get_json()
+        player_action(data['actor'], data['tech_id'], data['combat'])
+        response = make_response({}, 200)
+        return response
+        
+
 
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
@@ -98,10 +136,18 @@ api.add_resource(GetCharacter, '/character/<int:id>')
 api.add_resource(CharsKnownTechs, '/known_techs/<int:char_id>')
 api.add_resource(CharsStatuses, '/statuses/<int:char_id>')
 
+###Tech###
+api.add_resource(GetTech, '/tech/<int:id>')
+
 ###Combat###
 api.add_resource(CurrentCombat, '/combat')
+api.add_resource(StartCombat, '/combat/<int:player_id>/<int:enemy_id>')
 
 api.add_resource(Monsters, '/monsters')
+#api.add_resource(GetMonster, '/monsters/<int:id>')
+
+###Action###
+api.add_resource(Action, '/action')
 
 
 if __name__ == '__main__':

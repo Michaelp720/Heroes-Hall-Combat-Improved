@@ -2,7 +2,7 @@
 //show Tech and effects
 
 
-function TechCard({ tech }){
+function TechCard({ techId }){
 
     return(
         <div>

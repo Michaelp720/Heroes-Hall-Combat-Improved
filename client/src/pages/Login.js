@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useContext } from "react";
 import {PlayerContext} from '../context/player'
-import { Switch, Route } from "react-router-dom";
 
 function Login() {
   const [name, setPlayername] = useState("");
