@@ -2,7 +2,79 @@ from config import app, db, api
 from models import Combat, Status, Character, Player, KnownTech, Technique, Enemy
 
 def begin_combat():
+    combat = Combat.query.first()
+    if combat.player.order == 1:
+        get_player_action(combat)
+    elif combat.enemy.order == 1:
+        get_enemy_action(combat)
+
+def end_combat(winner, combat):
     pass
+    #delete all statuses
+    for status in combat.statuses:
+        remove_status(status)
+    #reset hp (later handle gameover)
+    setattr(combat.player, 'crnt_hp', combat.player.max_hp)
+    setattr(combat.enemy, 'crnt_hp', combat.enemy.max_hp)
+    #delete combat
+    db.session.delete(combat)
+    db.session.commit()
+    #navigate to ventures
+
+def advance_turn(combat, crnt_combatant):
+    pass
+    #check hps
+    if combat.player.crnt_hp <= 0:
+        end_combat(combat.enemy, combat)
+    elif combat.enemy.crnt_hp <= 0:
+        end_combat(combat.player, combat)
+    
+    if crnt_combatant == combat.player:
+        players_turn = True
+        other_combatant = combat.enemy
+    elif crnt_combatant == combat.enemy:
+        players_turn = False
+        other_combatant = combat.player
+    
+
+    if combat.turn == 1:
+        setattr(combat, 'turn', 2)
+        if players_turn:
+            get_enemy_action(combat)
+        elif not players_turn:
+            get_player_action(combat)
+    elif combat.turn == 2:
+        setattr(combat, 'turn', 1)
+        advance_rnd(combat)
+
+        
+def advance_rnd(combat):
+    combat.turn = 1
+    setattr(combat, 'rnd', combat.rnd+1)
+    for status in combat.statuses:
+        setattr(status, 'remaining_duration', status.remaining_duration-1)
+        if status.remaining_duration <= 0:
+            remove_status(status)
+
+    if combat.player.order == 1:
+        get_player_action(combat)
+    elif combat.enemy.order == 1:
+        get_enemy_action(combat)
+
+def get_player_action(combat):
+    pass
+    #take_action(combat.player, chosen_action.id, combat)
+
+def get_enemy_action(combat):
+    action_number = combat.rnd % len(combat.enemy.actions)
+    action_slot = combat.enemy.actions[action_number-1]
+    known_tech = KnownTech.query.filter(KnownTech.character_id == combat.enemy_id and KnownTech.slot == action_slot).first()
+    take_action(combat.enemy, known_tech.tech_id, combat)
+    advance_turn(combat, combat.enemy)
+
+def take_action(actor, action_id, combat):
+    pass
+    #
 
 def player_action(actor, action_id, combat):
     # print(f"Actor: {actor['name']}")
@@ -14,8 +86,11 @@ def player_action(actor, action_id, combat):
     # print(f"Actor type: {type(actor_obj)}")
     if action.target == "self":
         target = actor_obj
-    elif action.target == "enemy":
-        target = Character.query.filter(Character.id == combat_obj.enemy_id).first()
+    elif action.target == "opponent":
+        if actor_obj == combat_obj.player:
+            target = combat_obj.enemy
+        elif actor_obj == combat_obj.enemy:
+            target = combat_obj.player
 
     #else:
         #raise ValueError
