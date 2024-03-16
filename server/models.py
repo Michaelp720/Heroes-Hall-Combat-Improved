@@ -47,7 +47,7 @@ class Status(db.Model, SerializerMixin):
     # @validates('affected_stat')
     # def validate_affected_stat(self, key, value):
     #     stats = [] #List of possible stats
-    #     if value not in list:
+    #     if value not in stats:
     #         raise ValueError("error message")
     #     return value
 
