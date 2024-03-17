@@ -10,7 +10,7 @@ from flask_restful import Resource
 from config import app, db, api
 # Add your model imports
 from models import Combat, Status, Character, Player, KnownTech, Technique, Enemy
-from gameplay_methods import begin_combat, player_action
+from gameplay_methods import *
 
 
 # Views go here!
@@ -101,9 +101,8 @@ class StartCombat(Resource):
         )
         db.session.add(new_combat)
         db.session.commit()
-        begin_combat()
-
-        response = make_response(new_combat.to_dict(), 201)
+        this_combat = begin_combat()
+        response = make_response(this_combat.to_dict(), 201)
         return response
 
 class Monsters(Resource):
@@ -120,11 +119,12 @@ class Monsters(Resource):
 #         return response
 
 #######GAMEPLAY########
-class Action(Resource):
+class PlayerAction(Resource):
     def post(self):
         data = request.get_json()
-        player_action(data['actor'], data['tech_id'], data['combat'])
-        response = make_response({}, 200)
+        tech_id = data['techId']
+        combat = get_player_action(tech_id)
+        response = make_response(combat.to_dict(), 200)
         return response
         
 
@@ -149,7 +149,7 @@ api.add_resource(Monsters, '/monsters')
 #api.add_resource(GetMonster, '/monsters/<int:id>')
 
 ###Action###
-api.add_resource(Action, '/action')
+api.add_resource(PlayerAction, '/playeraction')
 
 
 if __name__ == '__main__':

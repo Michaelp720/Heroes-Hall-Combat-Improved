@@ -6,13 +6,17 @@ def begin_combat():
     if combat.player.spd >= combat.enemy.spd:
         setattr(combat.player, "order", 1)
         setattr(combat.enemy, "order", 2)
+        setattr(combat, "players_turn", True)
     elif combat.enemy.spd > combat.player.spd:
         setattr(combat.enemy, "order", 1)
         setattr(combat.player, "order", 2)
-    if combat.player.order == 1:
-        get_player_action(combat)
-    elif combat.enemy.order == 1:
-        get_enemy_action(combat)
+        setattr(combat, "players_turn", False)
+    db.session.commit()
+    return combat
+    # if combat.player.order == 1:
+    #     get_player_action(combat)
+    # elif combat.enemy.order == 1:
+    #     get_enemy_action(combat)
 
 def end_combat(winner, combat):
     #delete all statuses
@@ -30,26 +34,16 @@ def advance_turn(combat, crnt_combatant):
     #check hps
     if combat.player.crnt_hp <= 0:
         end_combat(combat.enemy, combat)
+        return
     elif combat.enemy.crnt_hp <= 0:
         end_combat(combat.player, combat)
-    
-    if crnt_combatant == combat.player:
-        players_turn = True
-        other_combatant = combat.enemy
-    elif crnt_combatant == combat.enemy:
-        players_turn = False
-        other_combatant = combat.player
-    
+        return
 
     if combat.turn == 1:
         setattr(combat, 'turn', 2)
-        if players_turn:
-            get_enemy_action(combat)
-        elif not players_turn:
-            get_player_action(combat)
     elif combat.turn == 2:
         setattr(combat, 'turn', 1)
-        advance_rnd(combat)
+        #advance_rnd(combat)
 
         
 def advance_rnd(combat):
@@ -65,9 +59,10 @@ def advance_rnd(combat):
     elif combat.enemy.order == 1:
         get_enemy_action(combat)
 
-def get_player_action(combat):
-    pass
-    #take_action(combat.player, chosen_action.id, combat)
+def get_player_action(tech_id):
+    combat = Combat.query.first()
+    take_action(combat.player, tech_id, combat)
+    return combat
 
 def get_enemy_action(combat):
     action_number = combat.rnd % len(combat.enemy.actions)
@@ -110,13 +105,12 @@ def take_action(actor, action_id, combat):
             setattr(other_combatant, 'order', other_order)
             db.session.commit()
 
-    advance_turn(combat, actor)
-
     ###CREATE STATUS###
     else: 
         #print("this runs")
         add_status(target, action.duration, action.stat, action.amnt, combat)
 
+    advance_turn(combat, actor)
 
     
 def calculate_dmg(pwr, defence, mod, amnt):
@@ -128,7 +122,7 @@ def calculate_healing(pwr, crnt_hp, max_hp, mod, amnt):
     new_hp = crnt_hp + (mod * pwr) + amnt
     if new_hp < max_hp:
         return new_hp
-    else
+    else:
         return max_hp
 
 def add_status(target, duration, stat, amnt, combat):
