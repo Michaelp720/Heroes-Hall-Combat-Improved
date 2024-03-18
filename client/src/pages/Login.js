@@ -2,10 +2,12 @@
 
 import React, { useEffect, useState, useContext } from "react";
 import {PlayerContext} from '../context/player'
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [name, setPlayername] = useState("");
   const { player, setPlayer } = useContext(PlayerContext)
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,6 +20,7 @@ function Login() {
     }).then((r) => {
       if (r.ok) {
         r.json().then((player) => setPlayer(player));
+        navigate("/")
       }
     });
   }
