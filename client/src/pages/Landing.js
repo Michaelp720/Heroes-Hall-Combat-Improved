@@ -17,10 +17,12 @@ function Landing() {
     });
   }, []);
 
-  function handleLogout(){
+  function handleLogout() {
     fetch("/logout", {
       method: "DELETE",
-    })
+    }).then(() => {
+      setPlayer(null);
+    });
   }
 
   function navLogin(){
