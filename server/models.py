@@ -14,7 +14,7 @@ class Combat(db.Model, SerializerMixin):
     enemy_id = db.Column(db.Integer, db.ForeignKey('enemy.id'))
     rnd = db.Column(db.Integer)
     turn = db.Column(db.Integer) #must be 1 or 2
-
+    player_next = db.Column(db.Boolean)
     # add relationship
     statuses = db.relationship('Status', back_populates = 'combat')
     player = db.relationship('Player', back_populates = 'combat')

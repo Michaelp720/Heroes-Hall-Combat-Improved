@@ -45,7 +45,7 @@ if __name__ == '__main__':
         new_enemies = [
             Enemy(
                 id = 2,
-                actions = "112",
+                actions = "211",
                 name = "Balewolf",
                 max_hp = 10,
                 base_pwr = 4,
@@ -64,7 +64,7 @@ if __name__ == '__main__':
                 base_pwr = 3,
                 base_def = 1,
                 spd = 2,
-                crnt_hp = 10,
+                crnt_hp = 6,
                 temp_pwr = 3,
                 temp_def = 1,
                 order = None
@@ -78,7 +78,7 @@ if __name__ == '__main__':
             Technique(
                 id = 1,
                 name = "Slash",
-                target = "enemy",
+                target = "opponent",
                 duration = 0,
                 stat = "hp",
                 modifier = 1,
@@ -87,7 +87,7 @@ if __name__ == '__main__':
             Technique(
                 id = 2,
                 name = "Snarl",
-                target = "enemy",
+                target = "opponent",
                 duration = 3,
                 stat = "def",
                 modifier = 0, 
@@ -123,10 +123,10 @@ if __name__ == '__main__':
             Technique(
                 id = 6,
                 name = "Draining Touch",
-                target = "enemy",
+                target = "opponent",
                 duration = 0,
                 stat = "hp",
-                modifier = -1,
+                modifier = 1,
                 amnt = 0
             )
         ]

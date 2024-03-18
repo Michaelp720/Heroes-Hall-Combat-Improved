@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import {PlayerContext} from '../context/player'
 import {CombatContext} from '../context/combat'
+import {PTurnContext} from '../context/playerturn'
 //import {OpponentContext} from '../context/opponent'
 import { useNavigate } from "react-router-dom";
 import { Button, Segment, Header } from 'semantic-ui-react'
@@ -10,6 +11,7 @@ import { Button, Segment, Header } from 'semantic-ui-react'
 function MonsterCard({monster}) {
     const { player, setPlayer } = useContext(PlayerContext)
     const { combat, setCombat } = useContext(CombatContext)
+    const { pturn, setPTurn } = useContext(PTurnContext)
     //const { opponent, setOpponent } = useContext(OpponentContext)
     const navigate = useNavigate();
     //monster is an Enemy object
@@ -28,7 +30,10 @@ function MonsterCard({monster}) {
             body: JSON.stringify()
         })
             .then((response => response.json()))
-            .then((newCombat) => setCombat(newCombat))
+            .then((newCombat) => {
+                setCombat(newCombat);
+                newCombat['player_next'] ? setPTurn(true) : setPTurn(false)
+            })
             .then(() => {
                 navigate("/combat")
             })

@@ -22,7 +22,7 @@ function handleClick(){
     <Segment>
       <Header as ='h2' onClick = {handleClick}>Ventures</Header>
       {monsters.map((monster) => (
-        <MonsterCard monster = {monster}/>
+        <MonsterCard key = {monster['id']} monster = {monster}/>
       ))}
     </Segment>
   )

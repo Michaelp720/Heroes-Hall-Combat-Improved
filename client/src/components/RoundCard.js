@@ -7,8 +7,13 @@ import {CombatContext} from '../context/combat'
 function RoundCard() {
     const { combat, setCombat } = useContext(CombatContext)
 
+    function handleClick(){
+        console.log(combat)
+        console.log(combat['players_turn'])
+    }
+
     return (
-        <h1>Round: {combat.rnd}</h1>
+        <h1 onClick = {handleClick}>Round: {combat.rnd}</h1>
     )
 }
 
