@@ -124,7 +124,19 @@ class PlayerAction(Resource):
         data = request.get_json()
         tech_id = data['techId']
         combat = get_player_action(tech_id)
-        response = make_response(combat.to_dict(), 200)
+        if combat:
+            response = make_response(combat.to_dict(), 200)
+        else:
+            response = make_response({} , 200)
+        return response
+
+class EnemyAction(Resource):
+    def get(self):
+        combat = get_enemy_action()
+        if combat:
+            response = make_response(combat.to_dict(), 200)
+        else:
+            response = make_response({} , 200)
         return response
         
 
@@ -150,6 +162,7 @@ api.add_resource(Monsters, '/monsters')
 
 ###Action###
 api.add_resource(PlayerAction, '/playeraction')
+api.add_resource(EnemyAction, '/enemyaction')
 
 
 if __name__ == '__main__':

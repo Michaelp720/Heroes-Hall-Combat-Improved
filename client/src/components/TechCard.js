@@ -2,11 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import {CombatContext} from '../context/combat'
 import {PTurnContext} from '../context/playerturn'
 import { Button, Segment, Header } from 'semantic-ui-react'
+import { useNavigate } from "react-router-dom";
 
-function TechCard({ techId }){
+function TechCard({ techId, players_tech }){
     const { combat, setCombat } = useContext(CombatContext)
     const [ tech, setTech ] = useState("")
     const { pturn, setPTurn } = useContext(PTurnContext)
+    const navigate = useNavigate();
     
     useEffect(() => {
         fetch(`/tech/${techId}`)
@@ -27,8 +29,16 @@ function TechCard({ techId }){
             })
         })
         .then(response => response.json())
-        .then(data => setCombat(data))
-        setPTurn(false)
+        .then((combat) => {
+            if(Object.keys(combat).length === 0){
+                setPTurn(false)
+                navigate("/ventures")
+            }
+            else {
+                setCombat(combat);
+                combat['player_next'] ? setPTurn(true) : setPTurn(false)
+            }
+        })
     }
 
     // return (
@@ -42,7 +52,7 @@ function TechCard({ techId }){
     //     </div>
     // );
 
-    if (pturn) {
+    if (pturn && players_tech) {
         return (
             <div>
                 <h4>{tech.name}</h4>
@@ -52,7 +62,7 @@ function TechCard({ techId }){
     } else {
         return (
             <div>
-                <h4>{tech.name}UH</h4>
+                <h4>{tech.name}</h4>
             </div>
         );
 }}

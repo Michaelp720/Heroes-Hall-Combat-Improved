@@ -32,7 +32,7 @@ function MonsterCard({monster}) {
             .then((response => response.json()))
             .then((newCombat) => {
                 setCombat(newCombat);
-                newCombat['players_turn'] ? setPTurn(true) : setPTurn(false)
+                newCombat['player_next'] ? setPTurn(true) : setPTurn(false)
             })
             .then(() => {
                 navigate("/combat")

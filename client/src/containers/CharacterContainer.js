@@ -12,13 +12,13 @@ import { Button, Segment, Header } from 'semantic-ui-react'
 
 function CharacterContainer({ character }) {
     
-    //fetch character stats
 
     return (
         //name, stat block
         //knowntechs container- pass character
       <Segment>
         <Header as= 'h3'>{character.name}</Header>
+        <Header as = 'h5'>HP: {character['crnt_hp']}/{character['max_hp']}</Header>
         <KnownTechsContainer character={character}/>
       </Segment>
     )

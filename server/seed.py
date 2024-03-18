@@ -45,7 +45,7 @@ if __name__ == '__main__':
         new_enemies = [
             Enemy(
                 id = 2,
-                actions = "112",
+                actions = "211",
                 name = "Balewolf",
                 max_hp = 10,
                 base_pwr = 4,
@@ -126,7 +126,7 @@ if __name__ == '__main__':
                 target = "opponent",
                 duration = 0,
                 stat = "hp",
-                modifier = -1,
+                modifier = 1,
                 amnt = 0
             )
         ]

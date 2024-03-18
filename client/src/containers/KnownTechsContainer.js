@@ -10,6 +10,11 @@ function KnownTechsContainer({ character }){
 
     const [ knownTechs, setKnownTechs ] = useState([])
     
+    let players_tech = false
+
+    if (character['id'] == player['id']){
+      players_tech = true
+    }
     
     useEffect(() => {
         fetch(`/known_techs/${character['id']}`)
@@ -21,7 +26,7 @@ function KnownTechsContainer({ character }){
     <Segment>
       <Header as ='h3'>KnownTechs</Header>
       {knownTechs.map((knownTech) => (
-        <TechCard key = {knownTech['id']} techId = {knownTech['tech_id']}/>
+        <TechCard key = {knownTech['id']} techId = {knownTech['tech_id']} players_tech = {players_tech}/>
       ))}
     </Segment>
     )
