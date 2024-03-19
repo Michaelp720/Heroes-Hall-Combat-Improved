@@ -120,9 +120,9 @@ class Monsters(Resource):
 
 #######GAMEPLAY########
 class PlayerAction(Resource):
-    def post(self):
+    def patch(self, tech_id):
         data = request.get_json()
-        tech_id = data['techId']
+        #tech_id = data['techId']
         combat = get_player_action(tech_id)
         if combat:
             response = make_response(combat.to_dict(), 200)
@@ -161,7 +161,7 @@ api.add_resource(Monsters, '/monsters')
 #api.add_resource(GetMonster, '/monsters/<int:id>')
 
 ###Action###
-api.add_resource(PlayerAction, '/playeraction')
+api.add_resource(PlayerAction, '/playeraction/<int:tech_id>')
 api.add_resource(EnemyAction, '/enemyaction')
 
 

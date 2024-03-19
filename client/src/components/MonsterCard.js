@@ -4,7 +4,14 @@ import {CombatContext} from '../context/combat'
 import {PTurnContext} from '../context/playerturn'
 //import {OpponentContext} from '../context/opponent'
 import { useNavigate } from "react-router-dom";
-import { Button, Segment, Header } from 'semantic-ui-react'
+import { Button, Segment, Header, CardMeta,
+    CardHeader,
+    CardDescription,
+    CardContent,
+    Card,
+    Icon,
+    Image, CardGroup} from 'semantic-ui-react'
+  
 //preview of Monster
 //on click go to combat
 // prop - {monster}
@@ -44,7 +51,15 @@ function MonsterCard({monster}) {
     }
 
     return (
-        <Header as = 'h3' onClick={startCombat}>{monster.name}</Header>
+        <Card >
+            <CardDescription>
+                {monster.name}
+            </CardDescription>
+            <Image src = {monster.portrait} size = "tiny" floated = "right"/>
+            <Button onClick={startCombat}>
+                Hunt
+            </Button>
+        </Card>
     )
   }
   

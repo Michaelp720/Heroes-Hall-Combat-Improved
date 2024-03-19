@@ -1,5 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Button, Segment, Header } from 'semantic-ui-react'
+import { Button, Segment, Header, CardMeta,
+  CardHeader,
+  CardDescription,
+  CardContent,
+  Card,
+  Icon,
+  Image, CardGroup} from 'semantic-ui-react'
 
 //shows status- effect and duration
 
@@ -7,9 +13,7 @@ import { Button, Segment, Header } from 'semantic-ui-react'
 function StatusCard({status}) {
 
     return(
-    <Segment>
-      <Header as = 'h5'>{status['affected_stat']}: {status['amnt']}, Rnds remaining: {status['remaining_duration']}</Header>
-    </Segment>
+      <CardDescription>{status['affected_stat']}: {status['amnt']}, Rnds remaining: {status['remaining_duration']}</CardDescription>
     )
   }
   

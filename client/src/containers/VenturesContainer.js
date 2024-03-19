@@ -1,7 +1,15 @@
 //group of MonsterCards over a map
 import React, { useEffect, useState } from "react";
-import { Button, Segment, Header } from 'semantic-ui-react'
+import { Button, Segment, Header, CardMeta,
+  CardHeader,
+  CardDescription,
+  CardContent,
+  Card,
+  Icon,
+  Image, CardGroup} from 'semantic-ui-react'
 import MonsterCard from "../components/MonsterCard"
+import '../index.css'
+import MapImage from "../images/FantasyMap.jpeg"
 
 function VenturesContainer() {
   const [monsters, setMonsters] = useState([]);
@@ -13,18 +21,20 @@ function VenturesContainer() {
         .then(data => setMonsters(data))
   }, [])
 
-function handleClick(){
-  console.log(monsters)
-}
-
   return (
     //MonsterCard for each enemy
-    <Segment>
-      <Header as ='h2' onClick = {handleClick}>Ventures</Header>
+    <Card
+    style={{
+      backgroundImage: `url(${MapImage})`,
+      backgroundSize: 'cover', // Adjust as needed
+      backgroundPosition: 'center', // Adjust as needed
+      width: "800px"
+    }}
+  >
       {monsters.map((monster) => (
         <MonsterCard key = {monster['id']} monster = {monster}/>
       ))}
-    </Segment>
+    </Card>
   )
 }
 
