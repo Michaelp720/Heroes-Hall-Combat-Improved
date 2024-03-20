@@ -1,6 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import StatusCard from "../components/StatusCard"
-import { Button, Segment, Header } from 'semantic-ui-react'
+import { Button, Segment, Header, CardMeta,
+  CardHeader,
+  CardDescription,
+  CardContent,
+  Card,
+  Icon,
+  Image, CardGroup} from 'semantic-ui-react'
 
 //contains StatusCards associated with character
 //fetches character's statuses
@@ -21,15 +27,15 @@ function StatusesContainer({character}) {
         fetch(`/statuses/${character['id']}`)
             .then(response => response.json())
             .then(data => setStatuses(data))
-      }, [])
+      }, [character])
 
     return(
-    <Segment>
-      <Header as ='h4'>Statuses</Header>
+    <CardContent>
+      <CardHeader as ='h4'>Statuses</CardHeader>
       {statuses.map((status) => (
         <StatusCard key = {status['id']} status = {status}/>
       ))}
-    </Segment>
+    </CardContent>
     )
   }
   

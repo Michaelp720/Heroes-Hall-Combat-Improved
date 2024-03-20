@@ -2,7 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import CharacterContainer from "../containers/CharacterContainer"
 import VenturesContainer from "../containers/VenturesContainer"
 import {PlayerContext} from '../context/player'
-import { Segment, Header } from 'semantic-ui-react'
+import { Button, Segment, Header, CardMeta,
+    CardHeader,
+    CardDescription,
+    CardContent,
+    Card,
+    Icon,
+    Image, CardGroup} from 'semantic-ui-react'
 
 //CharacterContainer for player
 //VenturesContainer with MonsterCards
@@ -12,10 +18,10 @@ function Venture(){
 
 
     return (
-        <Segment>
+        <CardGroup>
             <CharacterContainer character = {player}/>
             <VenturesContainer/>
-        </Segment>
+        </CardGroup>
     )
 }
 

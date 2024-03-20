@@ -1,8 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import {CombatContext} from '../context/combat'
 import {PTurnContext} from '../context/playerturn'
-import { Button, Segment, Header } from 'semantic-ui-react'
+import { Button, Segment, Header, CardMeta,
+    CardHeader,
+    CardDescription,
+    CardContent,
+    Card,
+    Icon,
+    Image, CardGroup} from 'semantic-ui-react'
 import { useNavigate } from "react-router-dom";
+import '../index.css'
 
 function TechCard({ techId, players_tech }){
     const { combat, setCombat } = useContext(CombatContext)
@@ -19,8 +26,8 @@ function TechCard({ techId, players_tech }){
     function chooseAction(){
         //fetch and call get_player_action
         //response should be combat
-        fetch(`/playeraction`, {
-            method: "POST",
+        fetch(`/playeraction/${techId}`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -41,29 +48,39 @@ function TechCard({ techId, players_tech }){
         })
     }
 
-    // return (
-    //     <div>
-    //         <h4>{tech.name}</h4>
-    //         {pturn ? (
-    //             <Button onClick={chooseAction}>Use</Button>
-    //         ) : (
-    //             <Button>Test</Button>
-    //         )}
-    //     </div>
-    // );
+    let techDescription = ''
+
+    if (tech.target == "opponent"){
+        if (tech.stat == 'hp'){
+            techDescription = "dmg target"
+        }
+        else{
+            techDescription = `reduces ${tech.stat}`
+        }
+    }
+    else{
+        if (tech.stat == 'hp'){
+            techDescription = `heal self`
+        }
+        else{
+            techDescription = `buffs ${tech.stat}`
+        }
+    }
 
     if (pturn && players_tech) {
         return (
-            <div>
-                <h4>{tech.name}</h4>
+            <Card>
+                <CardDescription textAlign="center" as = 'h4'>____{tech.name}____</CardDescription>
+                <CardDescription>| {techDescription}</CardDescription>
                 <Button onClick={chooseAction}>Use</Button>
-            </div>
+            </Card>
         );
     } else {
         return (
-            <div>
-                <h4>{tech.name}</h4>
-            </div>
+            <Card>
+                <CardHeader textAlign="center" as = 'h4'>____{tech.name}____</CardHeader>
+                <CardDescription>| {techDescription}</CardDescription>
+            </Card>
         );
 }}
 

@@ -28,6 +28,7 @@ if __name__ == '__main__':
             Player(
                 id = 1,
                 name = "Aragorn",
+                portrait = 'Aragorn.jpg',
                 max_hp = 18,
                 base_pwr = 4,
                 base_def = 1,
@@ -47,6 +48,7 @@ if __name__ == '__main__':
                 id = 2,
                 actions = "211",
                 name = "Balewolf",
+                portrait = 'Balewolf.jpeg',
                 max_hp = 10,
                 base_pwr = 4,
                 base_def = 0,
