@@ -46,7 +46,9 @@ function Combat() {
         fetch(`/enemyaction`)
         .then(response => response.json())
         .then((combat) => {
-            if(Object.keys(combat).length === 0){
+            if(combat.victor){
+                setCombat(combat)
+                console.log(combat)
                 navigate("/ventures")
             }
             else{
@@ -74,7 +76,12 @@ function Combat() {
             </CardGroup>
             <CardGroup itemsPerRow={3}>
                     <CharacterContainer character={combat.player}/>
-                <Button className="button-fixed-width" style={{ fontSize: '16px' }}>Choose A Technique</Button>
+                <Button className="button-fixed-width" style={{ fontSize: '16px' }}>
+                    {combat.enemy_action}
+                    <br/>
+                    <br/>
+                    Choose A Technique
+                </Button>
                     <CharacterContainer character={combat.enemy}/>
             </CardGroup>
             </Segment>
@@ -96,7 +103,8 @@ function Combat() {
             </CardGroup>
             <CardGroup itemsPerRow={3}>
                     <CharacterContainer character={combat.player}/>
-                <Button onClick={enemyAction} className="button-fixed-width" style={{ fontSize: '16px' }}>Brace Yourself!
+                <Button onClick={enemyAction} className="button-fixed-width" style={{ fontSize: '16px' }}> 
+                Brace Yourself!
                 <br />
                 <br />
                 (Click Here)

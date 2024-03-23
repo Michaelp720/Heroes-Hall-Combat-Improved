@@ -93,6 +93,8 @@ class CurrentCombat(Resource):
 
 class StartCombat(Resource):
     def post(self, player_id, enemy_id):
+        Combat.query.delete()
+        db.session.commit()
         new_combat = Combat(
             player_id = player_id,
             enemy_id = enemy_id,

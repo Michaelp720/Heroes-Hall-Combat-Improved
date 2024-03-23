@@ -23,7 +23,7 @@ function VenturesContainer() {
 
   return (
     //MonsterCard for each enemy
-    <Card
+    <CardGroup itemsPerRow={4}
     style={{
       backgroundImage: `url(${MapImage})`,
       backgroundSize: 'cover', // Adjust as needed
@@ -34,7 +34,7 @@ function VenturesContainer() {
       {monsters.map((monster) => (
         <MonsterCard key = {monster['id']} monster = {monster}/>
       ))}
-    </Card>
+    </CardGroup>
   )
 }
 
