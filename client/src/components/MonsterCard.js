@@ -11,6 +11,7 @@ import { Button, Segment, Header, CardMeta,
     Card,
     Icon,
     Image, CardGroup} from 'semantic-ui-react'
+import '../index.css'
   
 //preview of Monster
 //on click go to combat
@@ -49,13 +50,13 @@ function MonsterCard({monster}) {
         //     .then(response => response.json())
         //     .then(monster => setOpponent(monster))
     }
-
+//<Image src = {monster.portrait} size = "mini" floated = "right"/>
     return (
-        <Card >
-            <CardDescription>
+        <Card raised = {true} className="monster-card">
+            <CardHeader textAlign="center">
                 {monster.name}
-            </CardDescription>
-            <Image src = {monster.portrait} size = "tiny" floated = "right"/>
+            </CardHeader>
+            
             <Button onClick={startCombat}>
                 Hunt
             </Button>

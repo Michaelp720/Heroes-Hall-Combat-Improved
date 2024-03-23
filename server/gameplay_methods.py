@@ -14,7 +14,8 @@ def begin_combat():
         setattr(combat.player, "order", 2)
         setattr(combat, "player_next", False)
     db.session.commit()
-    return combat
+    updated_combat = Combat.query.first()
+    return updated_combat
     # if combat.player.order == 1:
     #     get_player_action(combat)
     # elif combat.enemy.order == 1:
@@ -27,19 +28,17 @@ def end_combat(winner, combat):
     #reset hp (later handle gameover)
     setattr(combat.player, 'crnt_hp', combat.player.max_hp)
     setattr(combat.enemy, 'crnt_hp', combat.enemy.max_hp)
-    #delete combat
-    db.session.delete(combat)
+    setattr(combat, 'victor', winner)
     db.session.commit()
-    #navigate to ventures
 
 def advance_turn(combat, crnt_combatant):
     #check hps
     if combat.player.crnt_hp <= 0:
-        end_combat(combat.enemy, combat)
+        end_combat(combat.enemy.name, combat)
         return
         
     elif combat.enemy.crnt_hp <= 0:
-        end_combat(combat.player, combat)
+        end_combat("player", combat)
         return
         
 
@@ -83,7 +82,10 @@ def get_enemy_action():
     action_slot = combat.enemy.actions[action_number-1]
     int_slot = int(action_slot)
     known_tech = KnownTech.query.filter(and_(KnownTech.slot == int_slot, KnownTech.character_id == combat.enemy_id)).first()
-    take_action(combat.enemy, known_tech.tech_id, combat)
+    enemy_action = take_action(combat.enemy, known_tech.tech_id, combat)
+    enemy_action_str = f"{combat.enemy.name} used {enemy_action}!"
+    setattr(combat, 'enemy_action', enemy_action_str)
+    db.session.commit()
     updated_combat = Combat.query.first()
     return updated_combat
 
@@ -128,6 +130,7 @@ def take_action(actor, action_id, combat):
     print(f"player order: {combat.player.order}")
     print(f"enemy order: {combat.enemy.order}")
     advance_turn(combat, actor)
+    return action.name
 
     
 def calculate_dmg(pwr, defence, mod, amnt):

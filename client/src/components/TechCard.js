@@ -37,8 +37,9 @@ function TechCard({ techId, players_tech }){
         })
         .then(response => response.json())
         .then((combat) => {
-            if(Object.keys(combat).length === 0){
+            if(combat.victor){
                 setPTurn(false)
+                setCombat(combat)
                 navigate("/ventures")
             }
             else {
