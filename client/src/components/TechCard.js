@@ -11,7 +11,7 @@ import { Button, Segment, Header, CardMeta,
 import { useNavigate } from "react-router-dom";
 import '../index.css'
 
-function TechCard({ techId, players_tech }){
+function TechCard({ techId, players_tech, adv = false }){
     const { combat, setCombat } = useContext(CombatContext)
     const [ tech, setTech ] = useState("")
     const { pturn, setPTurn } = useContext(PTurnContext)

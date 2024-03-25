@@ -114,6 +114,7 @@ class Monsters(Resource):
         response = make_response(monsters_dict, 200)
         return response
 
+
 # class GetMonster(Resource):
 #     def get(self, id):
 #         monster = Enemy.query.filer(Enemy.id == id).first()
@@ -140,7 +141,36 @@ class EnemyAction(Resource):
         else:
             response = make_response({} , 200)
         return response
-        
+
+#####ADVANCEMENT#####
+
+class AdvStat(Resource):
+    def patch(self, id):
+        data = request.get_json()
+        stat = data['stat']
+        player = Player.query.filter(Player.id == id).first()
+        previous_stat_value = getattr(player, stat)
+        if stat == 'max_hp':
+            increase = 3
+            temp_stat = 'crnt_hp'
+        elif stat == 'base_pwr':
+            increase = 1
+            temp_stat = 'temp_pwr'
+        elif stat == 'base_def':
+            increase = 1
+            temp_stat = 'temp_def'
+        elif stat == 'spd':
+            increase = 2
+            temp_stat = None
+        setattr(player, stat, previous_stat_value+increase)
+        if temp_stat:
+            setattr(player, temp_stat, previous_stat_value+increase)
+        setattr(player, 'adv_points', player.adv_points - 1)
+        db.session.commit()
+        updated_player = Player.query.filter(Player.id == id).first()
+        response = make_response(updated_player.to_dict(), 200)
+        return response
+     
 
 
 api.add_resource(CheckSession, '/check_session')
@@ -165,6 +195,9 @@ api.add_resource(Monsters, '/monsters')
 ###Action###
 api.add_resource(PlayerAction, '/playeraction/<int:tech_id>')
 api.add_resource(EnemyAction, '/enemyaction')
+
+##Advancement###
+api.add_resource(AdvStat, '/advstat/<int:id>')
 
 
 if __name__ == '__main__':

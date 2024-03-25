@@ -29,6 +29,7 @@ if __name__ == '__main__':
                 id = 1,
                 name = "Aragorn",
                 portrait = 'Aragorn.jpg',
+                adv_points = 5,
                 max_hp = 18,
                 base_pwr = 4,
                 base_def = 1,

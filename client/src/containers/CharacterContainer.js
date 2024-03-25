@@ -16,7 +16,7 @@ import { Button, Segment, Header, CardMeta,
 
 //Fetches
 
-function CharacterContainer({ character }) {
+function CharacterContainer({ character, advancement = false }) {
     
     let orderStr = ""
 
@@ -25,6 +25,12 @@ function CharacterContainer({ character }) {
     }
     else{
       orderStr = "2nd"
+    }
+
+    let adv_display = ""
+
+    if (advancement){
+      adv_display = `XP Points: ${character['adv_points']}`
     }
     
     
@@ -38,6 +44,9 @@ function CharacterContainer({ character }) {
         <CardDescription as = 'h3'>HP: {character['crnt_hp']}/{character['max_hp']}</CardDescription>
         <CardMeta as = 'h3'>pwr: {character['temp_pwr']} | def: {character['temp_def']} | order: {orderStr}</CardMeta>
         <KnownTechsContainer character={character}/>
+        <CardHeader as='h1'>
+          {adv_display}
+        </CardHeader>
       </Card>
     )
   }

@@ -88,7 +88,7 @@ class Character(db.Model, SerializerMixin):
 class Player(Character):
     __tablename__ = 'player'
     id = db.Column(db.Integer, db.ForeignKey('characters.id'), primary_key=True)
-    #adv_points = db.Column(db.Integer)
+    adv_points = db.Column(db.Integer)
 
 
     #relationships

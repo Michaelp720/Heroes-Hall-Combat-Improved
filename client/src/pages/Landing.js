@@ -29,6 +29,10 @@ function Landing() {
     navigate('/login')
   }
 
+  function navAdvancement(){
+    navigate('/advancement')
+  }
+
   function navVenture(){
     navigate('/ventures')
   }
@@ -38,7 +42,10 @@ function Landing() {
       <Segment>
         <Header>Welcome, {player.name}!</Header>
         <Button onClick={handleLogout}>Logout</Button>
-        <Button onClick={navVenture}>Begin Adventure!</Button>
+        <Button onClick={navAdvancement}>Advance Character</Button>
+        <br/>
+        <br/>
+        <Button onClick={navVenture}>Start Adventure!</Button>
       </Segment>
     )
   } 
