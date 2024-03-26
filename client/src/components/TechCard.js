@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import {CombatContext} from '../context/combat'
+import {PlayerContext} from '../context/player'
 import {PTurnContext} from '../context/playerturn'
 import { Button, Segment, Header, CardMeta,
     CardHeader,
@@ -13,6 +14,7 @@ import '../index.css'
 
 function TechCard({ techId, players_tech, adv = false }){
     const { combat, setCombat } = useContext(CombatContext)
+    const { player, setPlayer } = useContext(PlayerContext)
     const [ tech, setTech ] = useState("")
     const { pturn, setPTurn } = useContext(PTurnContext)
     const navigate = useNavigate();
@@ -68,6 +70,27 @@ function TechCard({ techId, players_tech, adv = false }){
         }
     }
 
+    function learnTech(techId, playerId){
+        if (player['adv_points']>1){
+            fetch(`/learntech`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    playerId: playerId,
+                    techId: techId
+                })
+            })
+            .then(response => response.json())
+            .then((player) => {
+                setPlayer(player)
+            })
+            
+        }
+    }
+
+
     if (pturn && players_tech) {
         return (
             <Card>
@@ -76,13 +99,24 @@ function TechCard({ techId, players_tech, adv = false }){
                 <Button onClick={chooseAction}>Use</Button>
             </Card>
         );
-    } else {
+    } 
+    else if (adv) {
+        return (
+            <Card>
+                <CardHeader textAlign="center" as = 'h4'>____{tech.name}____</CardHeader>
+                <CardDescription>| {techDescription}</CardDescription>
+                <Button onClick={() => learnTech(techId, player['id'])}>Learn Technique</Button>
+            </Card>
+        );
+}
+    else {
         return (
             <Card>
                 <CardHeader textAlign="center" as = 'h4'>____{tech.name}____</CardHeader>
                 <CardDescription>| {techDescription}</CardDescription>
             </Card>
-        );
-}}
+    );
+}
+}
 
 export default TechCard;

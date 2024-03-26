@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import KnownTechsContainer from "./KnownTechsContainer"
+import {PlayerContext} from '../context/player'
 import { Button, Segment, Header, CardMeta,
   CardHeader,
   CardDescription,
@@ -18,6 +19,10 @@ import { Button, Segment, Header, CardMeta,
 
 function CharacterContainer({ character, advancement = false }) {
     
+    const { player, setPlayer } = useContext(PlayerContext)
+
+
+
     let orderStr = ""
 
     if (character['order'] == 1){
@@ -30,7 +35,7 @@ function CharacterContainer({ character, advancement = false }) {
     let adv_display = ""
 
     if (advancement){
-      adv_display = `XP Points: ${character['adv_points']}`
+      adv_display = `Adv Points: ${character['adv_points']}`
     }
     
     
@@ -49,6 +54,6 @@ function CharacterContainer({ character, advancement = false }) {
         </CardHeader>
       </Card>
     )
-  }
+}
   
-  export default CharacterContainer;
+export default CharacterContainer;

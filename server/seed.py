@@ -29,7 +29,7 @@ if __name__ == '__main__':
                 id = 1,
                 name = "Aragorn",
                 portrait = 'Aragorn.jpg',
-                adv_points = 5,
+                adv_points = 6,
                 max_hp = 18,
                 base_pwr = 4,
                 base_def = 1,
@@ -63,7 +63,8 @@ if __name__ == '__main__':
                 actions = "211",
                 name = "Balewolf",
                 portrait = 'Balewolf.jpeg',
-                max_hp = 10,
+                threat_rating = 3,
+                max_hp = 13,
                 base_pwr = 4,
                 base_def = 0,
                 spd = 15,
@@ -76,6 +77,7 @@ if __name__ == '__main__':
                 id = 3,
                 actions = "1",
                 name = "Lostling",
+                threat_rating = 1,
                 max_hp = 6,
                 base_pwr = 3,
                 base_def = 1,
@@ -89,6 +91,7 @@ if __name__ == '__main__':
                 id = 4,
                 actions = "212",
                 name = "Wardeer",
+                threat_rating = 1,
                 max_hp = 6,
                 base_pwr = 4,
                 base_def = 1,
@@ -102,6 +105,7 @@ if __name__ == '__main__':
                 id = 6,
                 actions = "221",
                 name = "Greenbreather",
+                threat_rating = 1,
                 max_hp = 5,
                 base_pwr = 3,
                 base_def = 1,
@@ -115,6 +119,7 @@ if __name__ == '__main__':
                 id = 7,
                 actions = "1",
                 name = "Sunsparrow",
+                threat_rating = .5,
                 max_hp = 2,
                 base_pwr = 2,
                 base_def = 0,
@@ -128,7 +133,8 @@ if __name__ == '__main__':
                 id = 8,
                 actions = "1222222222",
                 name = "Shadowcat",
-                max_hp = 7,
+                threat_rating = 2,
+                max_hp = 8,
                 base_pwr = 4,
                 base_def = 0,
                 spd = 12,
@@ -141,7 +147,8 @@ if __name__ == '__main__':
                 id = 9,
                 actions = "12111",
                 name = "Razorboar",
-                max_hp = 6,
+                threat_rating = 2,
+                max_hp = 8,
                 base_pwr = 3,
                 base_def = 2,
                 spd = 6,
@@ -154,6 +161,7 @@ if __name__ == '__main__':
                 id = 10,
                 actions = "121",
                 name = "Shoddy Construct",
+                threat_rating = 0,
                 max_hp = 12,
                 base_pwr = 3,
                 base_def = 0,
@@ -167,7 +175,8 @@ if __name__ == '__main__':
                 id = 11,
                 actions = "2111",
                 name = "Bloodrake",
-                max_hp = 10,
+                threat_rating = 3,
+                max_hp = 12,
                 base_pwr = 3,
                 base_def = 2,
                 spd = 6,
@@ -180,6 +189,7 @@ if __name__ == '__main__':
                 id = 12,
                 actions = "1",
                 name = "Raveneye",
+                threat_rating = .5,
                 max_hp = 2,
                 base_pwr = 3,
                 base_def = 0,
@@ -193,6 +203,7 @@ if __name__ == '__main__':
                 id = 13,
                 actions = "21222",
                 name = "Misting",
+                threat_rating = 1,
                 max_hp = 6,
                 base_pwr = 3,
                 base_def = 0,
@@ -206,7 +217,8 @@ if __name__ == '__main__':
                 id = 14,
                 actions = "211111",
                 name = "Great Elk",
-                max_hp = 7,
+                threat_rating = 2,
+                max_hp = 8,
                 base_pwr = 3,
                 base_def = 3,
                 spd = 7,
@@ -219,6 +231,7 @@ if __name__ == '__main__':
                 id = 15,
                 actions = "1323",
                 name = "Moonbear",
+                threat_rating = 2,
                 max_hp = 9,
                 base_pwr = 4,
                 base_def = 1,
@@ -232,6 +245,7 @@ if __name__ == '__main__':
                 id = 16,
                 actions = "12222",
                 name = "Cloakhart",
+                threat_rating = 1,
                 max_hp = 6,
                 base_pwr = 4,
                 base_def = 0,
@@ -254,7 +268,8 @@ if __name__ == '__main__':
                 duration = 0,
                 stat = "hp",
                 modifier = 1,
-                amnt = 0 #pwr
+                amnt = 0, #pwr
+                unlocked = True
             ),
             Technique(
                 id = 2,
@@ -272,7 +287,8 @@ if __name__ == '__main__':
                 duration = 2,
                 stat = "def",
                 modifier = 0,
-                amnt = 2 #0pwr +2
+                amnt = 2, #0pwr +2
+                unlocked = True
             ),
             Technique(
                 id = 4,
@@ -281,7 +297,8 @@ if __name__ == '__main__':
                 duration = 0,
                 stat = "hp",
                 modifier = 1,
-                amnt = -1 #pwr -1
+                amnt = -1, #pwr -1
+                unlocked = True
             ),
             Technique(
                 id = 5,
@@ -290,7 +307,8 @@ if __name__ == '__main__':
                 duration = 0,
                 stat = "order",
                 modifier = 0,
-                amnt = 1
+                amnt = 1,
+                unlocked = True
             ),
             Technique(
                 id = 6,
@@ -308,7 +326,8 @@ if __name__ == '__main__':
                 duration = 2,
                 stat = "pwr",
                 modifier = 0,
-                amnt = 3
+                amnt = 3,
+                unlocked = True
             ),
             Technique(
                 id = 8,
@@ -317,7 +336,8 @@ if __name__ == '__main__':
                 duration = 0,
                 stat = "hp",
                 modifier = 1,
-                amnt = -1
+                amnt = -1,
+                unlocked = True
             ),
             Technique(
                 id = 9,
@@ -326,7 +346,8 @@ if __name__ == '__main__':
                 duration = 2,
                 stat = "pwr",
                 modifier = 0,
-                amnt = -2
+                amnt = -2,
+                unlocked = True
             ),
             Technique(
                 id = 10,

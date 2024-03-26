@@ -20,8 +20,6 @@ function Advancement(){
     const navigate = useNavigate();
 
 
-
-
     function navHome(){
         navigate("/")
     }

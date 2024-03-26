@@ -105,6 +105,8 @@ class Enemy(Character):
     __tablename__ = 'enemy'
     id = db.Column(db.Integer, db.ForeignKey('characters.id'), primary_key=True)
     actions = db.Column(db.String)
+    threat_rating = db.Column(db.Integer)
+
     #crnt_action = db.Column(db.Integer)
 
 
@@ -145,6 +147,7 @@ class Technique(db.Model, SerializerMixin):
     stat = db.Column(db.String)
     modifier = db.Column(db.Integer)
     amnt = db.Column(db.Integer)
+    unlocked = db.Column(db.Boolean, default = False)
 
     # relationships
     known_techs = db.relationship('KnownTech', back_populates = 'tech')

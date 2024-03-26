@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import CharacterContainer from "../containers/CharacterContainer"
+import TechCard from "../components/TechCard"
 import {PlayerContext} from '../context/player'
 import { Button, Segment, Header, CardMeta,
     CardHeader,
@@ -14,13 +14,23 @@ function LrnTechsContainer(){
     const { player, setPlayer } = useContext(PlayerContext)
     const [unlockedTechs, setUnlockedTechs] = useState([])
     
+    useEffect(() => {
+        fetch(`/unlockedtechs/${player['id']}`)
+            .then(response => response.json())
+            .then(data => setUnlockedTechs(data))
+    }, [player])
 
+    function handleClick(){
+        console.log(unlockedTechs)
+    }
 
     return (
-        <Card>
-            <CardHeader as = 'h3' textAlign="center">Techs</CardHeader>
-            <CardContent onClick = {() => advStat('max_hp')}>{player['max_hp']}</CardContent>
-        </Card>
+        <CardGroup>
+            <CardHeader as = 'h3' textAlign="center" onClick = {handleClick}>Techs</CardHeader>
+            {unlockedTechs.map((unlockedTech) => (
+                <TechCard key = {unlockedTech['id']} techId = {unlockedTech['id']} players_tech = {true} adv = {true}/>
+            ))}
+        </CardGroup>
     )}
 
 export default LrnTechsContainer
