@@ -114,6 +114,7 @@ class Monsters(Resource):
         response = make_response(monsters_dict, 200)
         return response
 
+
 # class GetMonster(Resource):
 #     def get(self, id):
 #         monster = Enemy.query.filer(Enemy.id == id).first()
@@ -140,7 +141,70 @@ class EnemyAction(Resource):
         else:
             response = make_response({} , 200)
         return response
-        
+
+#####ADVANCEMENT#####
+
+class AdvStat(Resource):
+    def patch(self, id):
+        data = request.get_json()
+        stat = data['stat']
+        player = Player.query.filter(Player.id == id).first()
+        previous_stat_value = getattr(player, stat)
+        if stat == 'max_hp':
+            increase = 3
+            temp_stat = 'crnt_hp'
+        elif stat == 'base_pwr':
+            increase = 1
+            temp_stat = 'temp_pwr'
+        elif stat == 'base_def':
+            increase = 1
+            temp_stat = 'temp_def'
+        elif stat == 'spd':
+            increase = 2
+            temp_stat = None
+        setattr(player, stat, previous_stat_value+increase)
+        if temp_stat:
+            setattr(player, temp_stat, previous_stat_value+increase)
+        setattr(player, 'adv_points', player.adv_points - 1)
+        db.session.commit()
+        updated_player = Player.query.filter(Player.id == id).first()
+        response = make_response(updated_player.to_dict(), 200)
+        return response
+     
+class UnlockedTechs(Resource):
+    def get(self, char_id):
+        unlocked_techs = Technique.query.filter(Technique.unlocked == True).all()
+        display_techs = []
+        for unlocked_tech in unlocked_techs:
+            known = False
+            for known_tech in unlocked_tech.known_techs:
+                if known_tech.character_id == char_id:
+                    known = True
+            if not known:
+                display_techs.append(unlocked_tech)
+        display_techs_dict = [display_tech.to_dict() for display_tech in display_techs]
+        response = make_response(display_techs_dict, 200)
+        return response
+
+class LearnTech(Resource):
+    def post(self):
+        data = request.get_json()
+        player_id = data['playerId']
+        tech_id = data['techId']
+        new_known_tech = KnownTech(
+            rnk = 1,
+            character_id = player_id,
+            tech_id = tech_id
+        )
+        player = Player.query.filter(Player.id == player_id).first()
+        new_points = player.adv_points - 2
+        setattr(player, 'adv_points', new_points)
+        db.session.add(new_known_tech)
+        db.session.commit()
+
+        updated_player = Player.query.filter(Player.id == player_id).first()
+        response = make_response(updated_player.to_dict(), 200)
+        return response
 
 
 api.add_resource(CheckSession, '/check_session')
@@ -165,6 +229,11 @@ api.add_resource(Monsters, '/monsters')
 ###Action###
 api.add_resource(PlayerAction, '/playeraction/<int:tech_id>')
 api.add_resource(EnemyAction, '/enemyaction')
+
+##Advancement###
+api.add_resource(AdvStat, '/advstat/<int:id>')
+api.add_resource(UnlockedTechs, '/unlockedtechs/<int:char_id>')
+api.add_resource(LearnTech, '/learntech')
 
 
 if __name__ == '__main__':

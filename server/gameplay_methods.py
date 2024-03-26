@@ -21,14 +21,20 @@ def begin_combat():
     # elif combat.enemy.order == 1:
     #     get_enemy_action(combat)
 
-def end_combat(winner, combat):
+def end_combat(victor, combat):
     #delete all statuses
     for status in combat.statuses:
         remove_status(status)
     #reset hp (later handle gameover)
     setattr(combat.player, 'crnt_hp', combat.player.max_hp)
     setattr(combat.enemy, 'crnt_hp', combat.enemy.max_hp)
-    setattr(combat, 'victor', winner)
+    setattr(combat, 'victor', victor)
+    
+    ##Award Adv Points##
+    if victor == 'player':
+        new_points = combat.player.adv_points + combat.enemy.threat_rating
+        setattr(combat.player, 'adv_points', new_points)
+
     db.session.commit()
 
 def advance_turn(combat, crnt_combatant):

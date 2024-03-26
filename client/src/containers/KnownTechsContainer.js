@@ -26,7 +26,7 @@ function KnownTechsContainer({ character }){
         fetch(`/known_techs/${character['id']}`)
             .then(response => response.json())
             .then(data => setKnownTechs(data))
-      }, [])
+      }, [player])
 
     return(
     <CardGroup itemsPerRow={2}>

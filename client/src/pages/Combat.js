@@ -59,9 +59,14 @@ function Combat() {
         })
     }
 
+    function goBack(){
+        navigate("/")
+    }
+
     if (pturn) {
         return (
             <Segment>
+            <Button onClick={goBack}>Retreat</Button>
             <CardGroup itemsPerRow={3}>
                 <Card>
                     <StatusesContainer character={combat.player}/>
@@ -81,6 +86,7 @@ function Combat() {
                     <br/>
                     <br/>
                     Choose A Technique
+
                 </Button>
                     <CharacterContainer character={combat.enemy}/>
             </CardGroup>
@@ -89,7 +95,6 @@ function Combat() {
     } else {
         return (
             <Segment>
-            <RoundCard/>
             <CardGroup itemsPerRow={3}>
                 <Card>
                     <StatusesContainer character={combat.player}/>
