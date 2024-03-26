@@ -20,23 +20,30 @@ import { Button, Segment, Header, CardMeta,
 function CharacterContainer({ character, advancement = false }) {
     
     const { player, setPlayer } = useContext(PlayerContext)
-
+    
 
 
     let orderStr = ""
+    let orderSpdDisplay = ''
 
-    if (character['order'] == 1){
-      orderStr = "1st"
-    }
-    else{
-      orderStr = "2nd"
-    }
+    
 
     let adv_display = ""
 
     if (advancement){
       adv_display = `Adv Points: ${character['adv_points']}`
+      orderSpdDisplay = `spd: ${character['spd']}`
     }
+    else {
+      if (character['order'] == 1){
+        orderStr = "1st"
+      }
+      else{
+        orderStr = "2nd"
+      }
+      orderSpdDisplay = `order: ${orderStr}`
+    }
+    
     
     
 
@@ -47,7 +54,7 @@ function CharacterContainer({ character, advancement = false }) {
         <CardHeader as= 'h1'> {character.name}</CardHeader>
         <Image src = {character.portrait} style={{ margin: '8px' }}/>
         <CardDescription as = 'h3'>HP: {character['crnt_hp']}/{character['max_hp']}</CardDescription>
-        <CardMeta as = 'h3'>pwr: {character['temp_pwr']} | def: {character['temp_def']} | order: {orderStr}</CardMeta>
+        <CardMeta as = 'h3'>pwr: {character['temp_pwr']} | def: {character['temp_def']} | {orderSpdDisplay}</CardMeta>
         <KnownTechsContainer character={character}/>
         <CardHeader as='h1'>
           {adv_display}

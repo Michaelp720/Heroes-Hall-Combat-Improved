@@ -30,10 +30,19 @@ def end_combat(victor, combat):
     setattr(combat.enemy, 'crnt_hp', combat.enemy.max_hp)
     setattr(combat, 'victor', victor)
     
-    ##Award Adv Points##
+    ##Player Rewards##
     if victor == 'player':
+        ###Gain AP###
         new_points = combat.player.adv_points + combat.enemy.threat_rating
         setattr(combat.player, 'adv_points', new_points)
+        db.session.commit()
+        print(combat.player)
+        print(combat.player.adv_points)
+        ###Unlock Monster's Techs###
+        monsters_known_techs = combat.enemy.known_techs
+        for known_tech in monsters_known_techs:
+            setattr(known_tech.tech, 'unlocked', True)
+            db.session.commit()
 
     db.session.commit()
 

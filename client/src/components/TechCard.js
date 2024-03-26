@@ -42,6 +42,7 @@ function TechCard({ techId, players_tech, adv = false }){
             if(combat.victor){
                 setPTurn(false)
                 setCombat(combat)
+                navigate("/")
                 navigate("/ventures")
             }
             else {
@@ -105,7 +106,7 @@ function TechCard({ techId, players_tech, adv = false }){
             <Card>
                 <CardHeader textAlign="center" as = 'h4'>____{tech.name}____</CardHeader>
                 <CardDescription>| {techDescription}</CardDescription>
-                <Button onClick={() => learnTech(techId, player['id'])}>Learn Technique</Button>
+                <Button onClick={() => learnTech(techId, player['id'])}>Learn</Button>
             </Card>
         );
 }

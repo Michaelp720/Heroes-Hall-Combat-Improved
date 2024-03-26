@@ -33,9 +33,16 @@ function AdvStatsContainer(){
 
 
     return (
-        <Card>
-            <CardHeader as = 'h3' textAlign="center">Stats</CardHeader>
-            <CardContent onClick = {() => advStat('max_hp')}>{player['max_hp']}</CardContent>
+        <Card width = {16}>
+            <CardHeader as = 'h3' textAlign="center">Improve Stats (-1 AP)</CardHeader>
+            <CardContent textAlign="center">
+                <Button onClick = {() => advStat('max_hp')}>+3 HP</Button>
+                <Button onClick = {() => advStat('base_pwr')}>+1 Pwr</Button>
+                <br/>
+                <br/>
+                <Button onClick = {() => advStat('base_def')}>+1 Def</Button>
+                <Button onClick = {() => advStat('spd')}>+2 Spd</Button>
+            </CardContent>
         </Card>
     )}
 

@@ -68,7 +68,7 @@ if __name__ == '__main__':
                 base_pwr = 4,
                 base_def = 0,
                 spd = 15,
-                crnt_hp = 10,
+                crnt_hp = 13,
                 temp_pwr = 4,
                 temp_def = 0,
                 order = None
@@ -138,7 +138,7 @@ if __name__ == '__main__':
                 base_pwr = 4,
                 base_def = 0,
                 spd = 12,
-                crnt_hp = 7,
+                crnt_hp = 8,
                 temp_pwr = 4,
                 temp_def = 0,
                 order = None
@@ -152,7 +152,7 @@ if __name__ == '__main__':
                 base_pwr = 3,
                 base_def = 2,
                 spd = 6,
-                crnt_hp = 6,
+                crnt_hp = 8,
                 temp_pwr = 3,
                 temp_def = 2,
                 order = None
@@ -166,7 +166,7 @@ if __name__ == '__main__':
                 base_pwr = 3,
                 base_def = 0,
                 spd = 15,
-                crnt_hp = 6,
+                crnt_hp = 8,
                 temp_pwr = 3,
                 temp_def = 0,
                 order = None
@@ -180,7 +180,7 @@ if __name__ == '__main__':
                 base_pwr = 3,
                 base_def = 2,
                 spd = 6,
-                crnt_hp = 10,
+                crnt_hp = 12,
                 temp_pwr = 3,
                 temp_def = 2,
                 order = None
@@ -222,7 +222,7 @@ if __name__ == '__main__':
                 base_pwr = 3,
                 base_def = 3,
                 spd = 7,
-                crnt_hp = 7,
+                crnt_hp = 8,
                 temp_pwr = 3,
                 temp_def = 3,
                 order = None
