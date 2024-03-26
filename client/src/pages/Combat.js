@@ -48,12 +48,11 @@ function Combat() {
         .then((combat) => {
             if(combat.victor){
                 setCombat(combat)
-                console.log(combat)
+                navigate("/")
                 navigate("/ventures")
             }
             else{
                 setCombat(combat);
-                console.log(combat);
                 combat['player_next'] ? setPTurn(true) : setPTurn(false)
             }
         })
@@ -61,6 +60,7 @@ function Combat() {
 
     function goBack(){
         navigate("/")
+        navigate("/ventures")
     }
 
     if (pturn) {

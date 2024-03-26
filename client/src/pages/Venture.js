@@ -20,6 +20,9 @@ function Venture(){
     const { combat, setCombat } = useContext(CombatContext)
     const navigate = useNavigate();
 
+    useEffect(() => {
+    }, [player]); 
+
     let outcomeMessage
 
     if (combat){
@@ -35,14 +38,19 @@ function Venture(){
         navigate("/")
     }
 
+    function navAdv (){
+        navigate("/advancement")
+    }
+
         return (
         <Segment>
             <Button onClick = {navHome}>Home</Button>
+            <Button onClick = {navAdv}>Advance Character</Button>
             <Header as = 'h2' textAlign="center">{outcomeMessage}</Header>
             <Grid columns={2}>
                 <Grid.Row>
                     <Grid.Column width = {4}>
-                        <CharacterContainer character={player} />
+                        <CharacterContainer character={player} advancement = {true}/>
                     </Grid.Column>
                     <Grid.Column>
                         <VenturesContainer />

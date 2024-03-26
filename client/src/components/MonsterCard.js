@@ -56,10 +56,13 @@ function MonsterCard({monster}) {
             <CardHeader textAlign="center">
                 {monster.name}
             </CardHeader>
-            
+            <CardDescription>Threat: {monster['threat_rating']}</CardDescription>
+            <CardContent>
             <Button onClick={startCombat}>
                 Hunt
             </Button>
+            </CardContent>
+            
         </Card>
     )
   }

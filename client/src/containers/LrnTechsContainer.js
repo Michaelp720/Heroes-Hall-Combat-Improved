@@ -25,12 +25,17 @@ function LrnTechsContainer(){
     }
 
     return (
-        <CardGroup>
-            <CardHeader as = 'h3' textAlign="center" onClick = {handleClick}>Techs</CardHeader>
+        <Segment>
+            <Header as = 'h3' textAlign="center" onClick = {handleClick}>Learn Techniques (-2 AP)</Header>
+        <CardGroup itemsPerRow={2}>
+            
             {unlockedTechs.map((unlockedTech) => (
                 <TechCard key = {unlockedTech['id']} techId = {unlockedTech['id']} players_tech = {true} adv = {true}/>
             ))}
+            
         </CardGroup>
+        <Header as = "h4" textAlign="center">Unlock Techniques by Adventuring</Header>
+        </Segment>
     )}
 
 export default LrnTechsContainer
