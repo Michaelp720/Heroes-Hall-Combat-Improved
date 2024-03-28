@@ -11,6 +11,7 @@ import { Button, Segment, Header, CardMeta,
     Icon,
     Image, CardGroup, Grid} from 'semantic-ui-react'
     import { useNavigate } from "react-router-dom";
+    import MapImage from "../images/Baleweld.webp"
 
 //CharacterContainer for player
 //VenturesContainer with MonsterCards
@@ -43,10 +44,16 @@ function Venture(){
     }
 
         return (
-        <Segment>
+        <Segment style={{
+            backgroundImage: `url(${MapImage})`,
+            backgroundSize: 'cover', // Adjust as needed
+            backgroundPosition: 'center', // Adjust as needed
+            width: "auto",
+            height: "1000px"
+          }}>
             <Button onClick = {navHome}>Home</Button>
             <Button onClick = {navAdv}>Advance Character</Button>
-            <Header as = 'h2' textAlign="center">{outcomeMessage}</Header>
+            <Header as = 'h2' textAlign="center" color = "olive">{outcomeMessage}</Header>
             <Grid columns={2}>
                 <Grid.Row>
                     <Grid.Column width = {4}>

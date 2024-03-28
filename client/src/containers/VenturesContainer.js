@@ -9,7 +9,7 @@ import { Button, Segment, Header, CardMeta,
   Image, CardGroup} from 'semantic-ui-react'
 import MonsterCard from "../components/MonsterCard"
 import '../index.css'
-import MapImage from "../images/FantasyMap.jpeg"
+import MapImage from "../images/Baleweld.webp"
 
 function VenturesContainer() {
   const [monsters, setMonsters] = useState([]);
@@ -23,15 +23,7 @@ function VenturesContainer() {
 
   return (
     //MonsterCard for each enemy
-    <CardGroup itemsPerRow={4}
-    style={{
-      backgroundImage: `url(${MapImage})`,
-      backgroundSize: 'cover', // Adjust as needed
-      backgroundPosition: 'center', // Adjust as needed
-      width: "auto",
-      height: "600px"
-    }}
-  >
+    <CardGroup size = "tiny" itemsPerRow={4}>
       {monsters.map((monster) => (
         <MonsterCard key = {monster['id']} monster = {monster}/>
       ))}

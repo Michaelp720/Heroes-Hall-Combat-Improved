@@ -27,7 +27,7 @@ if __name__ == '__main__':
         new_players = [
             Player(
                 id = 1,
-                name = "Aragorn",
+                name = "Hentian",
                 portrait = 'Aragorn.jpg',
                 adv_points = 4,
                 max_hp = 12,
@@ -327,7 +327,7 @@ if __name__ == '__main__':
                 stat = "pwr",
                 modifier = 0,
                 amnt = 3,
-                unlocked = True
+                unlocked = False
             ),
             Technique(
                 id = 8,
@@ -337,7 +337,7 @@ if __name__ == '__main__':
                 stat = "hp",
                 modifier = 1,
                 amnt = -1,
-                unlocked = True
+                unlocked = False
             ),
             Technique(
                 id = 9,

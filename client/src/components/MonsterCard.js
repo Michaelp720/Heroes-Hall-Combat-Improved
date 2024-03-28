@@ -16,7 +16,7 @@ import '../index.css'
 //preview of Monster
 //on click go to combat
 // prop - {monster}
-function MonsterCard({monster}) {
+function MonsterCard({monster, size}) {
     const { player, setPlayer } = useContext(PlayerContext)
     const { combat, setCombat } = useContext(CombatContext)
     const { pturn, setPTurn } = useContext(PTurnContext)
@@ -52,7 +52,7 @@ function MonsterCard({monster}) {
     }
 //<Image src = {monster.portrait} size = "mini" floated = "right"/>
     return (
-        <Card raised = {true}>
+        <Card raised = {true} size = "tiny">
             <CardHeader as = 'h4' textAlign="center">
                 {monster.name}
             </CardHeader>

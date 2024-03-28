@@ -13,6 +13,7 @@ import { Button, Segment, Header, CardMeta,
     Image, CardGroup} from 'semantic-ui-react'
 import { useNavigate } from "react-router-dom";
 import '../index.css'
+import MapImage from "../images/Baleweld.webp"
 
     // <Card>
     //   <Image src='/images/avatar/large/matthew.png' wrapped ui={false} />
@@ -65,7 +66,13 @@ function Combat() {
 
     if (pturn) {
         return (
-            <Segment>
+            <Segment style={{
+                backgroundImage: `url(${MapImage})`,
+                backgroundSize: 'cover', // Adjust as needed
+                backgroundPosition: 'center', // Adjust as needed
+                width: "auto",
+                height: "1000px"
+              }}>
             <Button onClick={goBack}>Retreat</Button>
             <CardGroup itemsPerRow={3}>
                 <Card>
@@ -94,7 +101,13 @@ function Combat() {
         );
     } else {
         return (
-            <Segment>
+            <Segment style={{
+                backgroundImage: `url(${MapImage})`,
+                backgroundSize: 'cover', // Adjust as needed
+                backgroundPosition: 'center', // Adjust as needed
+                width: "auto",
+                height: "1000px"
+              }}>
             <CardGroup itemsPerRow={3}>
                 <Card>
                     <StatusesContainer character={combat.player}/>
