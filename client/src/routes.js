@@ -4,7 +4,9 @@ import Guide from './pages/Guide'
 import Login from './pages/Login';
 import Combat from './pages/Combat';
 import Advancement from './pages/Advancement';
+import About from './pages/About'
 import MonsterCard from "./components/MonsterCard";
+
 
 
 const routes = [
@@ -35,6 +37,10 @@ const routes = [
     {
         path: "/advancement",
         element: <Advancement />,
+    },
+    {
+        path: "/about",
+        element: <About />,
     }
 ];
 

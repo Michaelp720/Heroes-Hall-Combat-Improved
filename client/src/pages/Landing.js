@@ -39,16 +39,20 @@ function Landing() {
     navigate('/ventures')
   }
 
+  function navAbout(){
+    navigate('/about')
+  }
+
   if (player) {
     return(
       <Segment>
         <Button onClick={handleLogout}>Logout</Button>
+        
         <Header as = 'h1'>Welcome, {player.name}, to...</Header>
-
-        <img src={HHLogo} alt="Heroes' Hall Logo" style={{ width: '1000px', height: 'auto' }}/>
+        <img src={HHLogo} alt="Heroes' Hall Logo" style={{ width: '1000px', height: 'auto' }} onClick = {navAbout}/>
         <br/>
         <Button onClick={navAdvancement}>Advance Character</Button>
-        <Button onClick={navVenture}>Start Adventure!</Button>
+        <Button onClick={navVenture}>Adventure!</Button>
       </Segment>
     )
   } 
@@ -56,7 +60,7 @@ function Landing() {
     return (
       <Segment>
         <Button onClick={navLogin}>Login to Begin your Journey!</Button>
-        <br></br>
+        <br/>
         <img src={HHLogo} alt="Heroes' Hall Logo" style={{ width: '1000px', height: 'auto' }}/>
       </Segment>
     )
