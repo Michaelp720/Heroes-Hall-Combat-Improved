@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import TechCard from "../components/TechCard"
 import {PlayerContext} from '../context/player'
+import { useNavigate } from "react-router-dom";
 import { Button, Segment, Header, CardMeta,
     CardHeader,
     CardDescription,
@@ -10,9 +11,11 @@ import { Button, Segment, Header, CardMeta,
     Image, CardGroup, Grid} from 'semantic-ui-react'
 
 
+
 function LrnTechsContainer(){
     const { player, setPlayer } = useContext(PlayerContext)
     const [unlockedTechs, setUnlockedTechs] = useState([])
+    const navigate = useNavigate();
     
     useEffect(() => {
         fetch(`/unlockedtechs/${player['id']}`)
@@ -24,6 +27,10 @@ function LrnTechsContainer(){
         console.log(unlockedTechs)
     }
 
+    function navVenture(){
+        navigate('/ventures')
+      }
+
     return (
         <Segment>
             <Header as = 'h3' textAlign="center" onClick = {handleClick}>Learn Techniques (-2 AP)</Header>
@@ -34,7 +41,7 @@ function LrnTechsContainer(){
             ))}
             
         </CardGroup>
-        <Header as = "h4" textAlign="center">Unlock Techniques by Adventuring</Header>
+        <Header as = "h4" textAlign="center" onClick = {navVenture}>Unlock Techniques by Hunting Beasts</Header>
         </Segment>
     )}
 
