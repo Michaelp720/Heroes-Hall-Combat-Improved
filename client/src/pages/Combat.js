@@ -50,7 +50,9 @@ function Combat() {
             if(combat.victor){
                 setCombat(combat)
                 navigate("/")
-                navigate("/ventures")
+                setTimeout(() => {
+                    navigate("/ventures")
+                  }, 100)
             }
             else{
                 setCombat(combat);

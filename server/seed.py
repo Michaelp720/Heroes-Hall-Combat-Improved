@@ -631,7 +631,7 @@ if __name__ == '__main__':
                 slot = 2,
                 rnk = 0,
                 character_id = 6,
-                tech_id = 12
+                tech_id = 13
             ),
             KnownTech(
                 id = 15,
