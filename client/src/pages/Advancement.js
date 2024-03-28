@@ -32,20 +32,19 @@ function Advancement(){
 
         <Grid columns={2} centered>
             <Grid.Row>
-                <Grid.Column>
+                <Grid.Column width = {5}>
                     <Button onClick = {navHome}>Home</Button>
                     <Button onClick = {navVenture}>Adventure!</Button>
                 </Grid.Column>
                 <Grid.Column>
-                    <Header as = 'h2' textAlign="left">Advancement</Header>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-                <Grid.Column >
+                <Grid.Column width = {5}>
                     <CharacterContainer character={player} advancement = {true} />
                 </Grid.Column>
         
-                <Grid.Column width = {8}>
+                <Grid.Column>
                     <AdvStatsContainer/>
                     <LrnTechsContainer/>
                 </Grid.Column>

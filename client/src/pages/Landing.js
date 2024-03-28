@@ -4,6 +4,8 @@ import React, { useEffect, useState, useContext } from "react";
 import {PlayerContext} from '../context/player'
 import { Button, Segment, Header } from 'semantic-ui-react'
 import { useNavigate } from "react-router-dom";
+import '../index.css'
+import HHLogo from '../images/HHLogo.png';
 
 function Landing() {
   const { player, setPlayer } = useContext(PlayerContext)
@@ -37,22 +39,29 @@ function Landing() {
     navigate('/ventures')
   }
 
+  function navAbout(){
+    navigate('/about')
+  }
+
   if (player) {
     return(
       <Segment>
-        <Header>Welcome, {player.name}!</Header>
         <Button onClick={handleLogout}>Logout</Button>
+        
+        <Header as = 'h1'>Welcome, {player.name}, to...</Header>
+        <img src={HHLogo} alt="Heroes' Hall Logo" style={{ width: '1000px', height: 'auto' }} onClick = {navAbout}/>
+        <br/>
         <Button onClick={navAdvancement}>Advance Character</Button>
-        <br/>
-        <br/>
-        <Button onClick={navVenture}>Start Adventure!</Button>
+        <Button onClick={navVenture}>Adventure!</Button>
       </Segment>
     )
   } 
   else {
     return (
       <Segment>
-        <Button onClick={navLogin}>Login</Button>
+        <Button onClick={navLogin}>Login to Begin your Journey!</Button>
+        <br/>
+        <img src={HHLogo} alt="Heroes' Hall Logo" style={{ width: '1000px', height: 'auto' }}/>
       </Segment>
     )
   }
@@ -60,3 +69,5 @@ function Landing() {
 }
 
 export default Landing;
+
+//        <header className="title-card">Heroes' Hall: Combat</header>
