@@ -52,17 +52,15 @@ function MonsterCard({monster}) {
     }
 //<Image src = {monster.portrait} size = "mini" floated = "right"/>
     return (
-        <Card raised = {true} className="monster-card">
-            <CardHeader textAlign="center">
+        <Card raised = {true}>
+            <CardHeader as = 'h4' textAlign="center">
                 {monster.name}
             </CardHeader>
-            <CardDescription>Threat: {monster['threat_rating']}</CardDescription>
-            <CardContent>
+            
+            <CardContent>Threat: {monster['threat_rating']}</CardContent>
             <Button onClick={startCombat}>
                 Hunt
             </Button>
-            </CardContent>
-            
         </Card>
     )
   }

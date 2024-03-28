@@ -52,7 +52,7 @@ function CharacterContainer({ character, advancement = false }) {
         //knowntechs container- pass character
       <Card>
         <CardHeader as= 'h1'> {character.name}</CardHeader>
-        <Image src = {character.portrait} style={{ margin: '8px' }}/>
+        <Image src = {character.portrait} style={{height: "300px", width: '280px', margin: '8px' }}/>
         <CardDescription as = 'h3'>HP: {character['crnt_hp']}/{character['max_hp']}</CardDescription>
         <CardMeta as = 'h3'>pwr: {character['temp_pwr']} | def: {character['temp_def']} | {orderSpdDisplay}</CardMeta>
         <KnownTechsContainer character={character}/>

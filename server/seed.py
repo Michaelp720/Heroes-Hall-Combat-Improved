@@ -29,14 +29,14 @@ if __name__ == '__main__':
                 id = 1,
                 name = "Aragorn",
                 portrait = 'Aragorn.jpg',
-                adv_points = 6,
-                max_hp = 18,
-                base_pwr = 4,
-                base_def = 1,
-                spd = 7,
-                crnt_hp = 18,
-                temp_pwr = 4,
-                temp_def = 1,
+                adv_points = 4,
+                max_hp = 12,
+                base_pwr = 3,
+                base_def = 0,
+                spd = 6,
+                crnt_hp = 12,
+                temp_pwr = 3,
+                temp_def = 0,
                 order = None
             ),
             Player(
@@ -63,14 +63,14 @@ if __name__ == '__main__':
                 actions = "211",
                 name = "Balewolf",
                 portrait = 'Balewolf.jpeg',
-                threat_rating = 3,
+                threat_rating = 4,
                 max_hp = 13,
                 base_pwr = 4,
-                base_def = 0,
+                base_def = 2,
                 spd = 15,
                 crnt_hp = 13,
                 temp_pwr = 4,
-                temp_def = 0,
+                temp_def = 2,
                 order = None
             ),
             Enemy(
@@ -273,12 +273,12 @@ if __name__ == '__main__':
             ),
             Technique(
                 id = 2,
-                name = "Snarl",
+                name = "Howl",
                 target = "opponent",
                 duration = 3,
                 stat = "def",
                 modifier = 0, 
-                amnt = -3
+                amnt = -4
             ),
             Technique(
                 id = 3,

@@ -23,12 +23,13 @@ function VenturesContainer() {
 
   return (
     //MonsterCard for each enemy
-    <CardGroup itemsPerRow={3}
+    <CardGroup itemsPerRow={4}
     style={{
       backgroundImage: `url(${MapImage})`,
       backgroundSize: 'cover', // Adjust as needed
       backgroundPosition: 'center', // Adjust as needed
-      width: "800px"
+      width: "auto",
+      height: "600px"
     }}
   >
       {monsters.map((monster) => (

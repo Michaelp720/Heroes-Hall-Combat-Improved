@@ -95,7 +95,7 @@ function TechCard({ techId, players_tech, adv = false }){
     if (pturn && players_tech) {
         return (
             <Card>
-                <CardDescription textAlign="center" as = 'h4'>____{tech.name}____</CardDescription>
+                <CardHeader textAlign="center" as = 'h4'>{tech.name}</CardHeader>
                 <CardDescription>| {techDescription}</CardDescription>
                 <Button onClick={chooseAction}>Use</Button>
             </Card>
@@ -104,7 +104,7 @@ function TechCard({ techId, players_tech, adv = false }){
     else if (adv) {
         return (
             <Card>
-                <CardHeader textAlign="center" as = 'h4'>____{tech.name}____</CardHeader>
+                <CardHeader textAlign="center" as = 'h4'>{tech.name}</CardHeader>
                 <CardDescription>| {techDescription}</CardDescription>
                 <Button onClick={() => learnTech(techId, player['id'])}>Learn</Button>
             </Card>
@@ -113,7 +113,7 @@ function TechCard({ techId, players_tech, adv = false }){
     else {
         return (
             <Card>
-                <CardHeader textAlign="center" as = 'h4'>____{tech.name}____</CardHeader>
+                <CardHeader textAlign="center" as = 'h4'>{tech.name}</CardHeader>
                 <CardDescription>| {techDescription}</CardDescription>
             </Card>
     );
