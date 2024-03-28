@@ -43,10 +43,10 @@ return(
                 This app is my first shot at programming a stripped-down version of the turn-based combat and the origin of one of the greatest threats to the world of Heroes' Hall.
             </p>
             <p>
-                In this app, venture into the Baleweld, the ever-wood, the primordial forest. Hunt the weald's mystical denizens, strengthen your Hero and take on aspects of the Beasts you defeat. <br/>How far will you push your Hero to change? How long until you no longer recognize the eager adventurer that first set out? 
+                In this app, venture into the Baleweld, the primordial forest. Hunt the weald's mystical denizens, strengthen your Hero and take on aspects of the Beasts you defeat. <br/>How far will you push your Hero to change? How long until you no longer recognize the eager adventurer that first set out? 
             </p>
             <p>
-                ...And when the gristly work is done, will Light finally be brought to the Baleweld? Or will it be conquered by the most Baleful Beast of all?
+                ...And when the grisly work is done, will Light finally be brought to the Baleweld? Or will it be conquered by the most Baleful Beast of all?
             </p>
             <img src={BWLogo} alt="Baleweld Logo" style={{ width: '500px', height: 'auto'}}/>
             

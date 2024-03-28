@@ -29,7 +29,7 @@ if __name__ == '__main__':
                 id = 1,
                 name = "Hentian",
                 portrait = 'Aragorn.jpg',
-                adv_points = 4,
+                adv_points = 7,
                 max_hp = 12,
                 base_pwr = 3,
                 base_def = 0,
@@ -91,6 +91,7 @@ if __name__ == '__main__':
                 id = 4,
                 actions = "212",
                 name = "Wardeer",
+                portrait = 'Wardeer.jpg',
                 threat_rating = 1,
                 max_hp = 6,
                 base_pwr = 4,
@@ -288,7 +289,7 @@ if __name__ == '__main__':
                 stat = "def",
                 modifier = 0,
                 amnt = 2, #0pwr +2
-                unlocked = True
+                unlocked = False
             ),
             Technique(
                 id = 4,
@@ -543,13 +544,6 @@ if __name__ == '__main__':
                 tech_id = 1
             ),
             KnownTech(
-                id = 2,
-                slot = 2,
-                rnk = 0,
-                character_id = 1,
-                tech_id = 3
-            ),
-            KnownTech(
                 id = 3,
                 slot = 3,
                 rnk = 0,
@@ -631,7 +625,7 @@ if __name__ == '__main__':
                 slot = 2,
                 rnk = 0,
                 character_id = 6,
-                tech_id = 12
+                tech_id = 13
             ),
             KnownTech(
                 id = 15,

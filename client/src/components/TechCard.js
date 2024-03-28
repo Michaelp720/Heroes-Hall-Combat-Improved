@@ -43,7 +43,10 @@ function TechCard({ techId, players_tech, adv = false }){
                 setPTurn(false)
                 setCombat(combat)
                 navigate("/")
-                navigate("/ventures")
+                setTimeout(() => {
+                    navigate("/ventures")
+                  }, 100)
+                
             }
             else {
                 setCombat(combat);
