@@ -31,6 +31,7 @@ class Character(db.Model, SerializerMixin):
     base_pwr = db.Column(db.Integer)
     base_def = db.Column(db.Integer)
     base_mv = db.Column(db.Integer)
+    base_luck = db.Column(db.Integer)
     spd = db.Column(db.Integer)
 
     #combat stat block
@@ -38,6 +39,8 @@ class Character(db.Model, SerializerMixin):
     temp_pwr = db.Column(db.Integer)
     temp_def = db.Column(db.Integer)
     temp_mv = db.Column(db.Integer)
+    temp_luck = db.Column(db.Integer)
+    position = db.Column(db.Integer)
     order = db.Column(db.Integer)
 
     # add relationships
@@ -69,3 +72,57 @@ class Technique(db.Model, SerializerMixin):
     @property
     def effects(self):
         return json.loads(self.effects_json)
+
+class KnownTech(db.Model, SerializerMixin):
+    __tablename__ = 'known_techs'
+
+    id = db.Column(db.Integer, primary_key=True)
+    slot = db.Column(db.Integer)
+    rnk = db.Column(db.Integer)
+
+    #foreign keys
+    character_id = db.Column(db.Integer, db.ForeignKey('characters.id'))
+    tech_id = db.Column(db.Integer, db.ForeignKey('techs.id'))
+
+    # relationships
+    character = db.relationship('Character', back_populates = 'known_techs')
+    technique = db.relationship('Technique', back_populates = 'known_techs')
+    # serialization rules
+    serialize_rules = ('-character.known_techs', '-technique.known_techs' )
+
+
+class Status(db.Model, SerializerMixin):
+    __tablename__ = 'statuses'
+
+    id = db.Column(db.Integer, primary_key=True)
+    remaining_duration = db.Column(db.Integer)
+    type = db.Column(db.String)
+    #types of Statuses inherit from Status- stat_change, dot, stance, stuns, paired (goaded, guarded, mind_meld), 
+
+    #foreign keys
+    combat_id = db.Column(db.Integer, db.ForeignKey('combats.id'))
+    character_id = db.Column(db.Integer, db.ForeignKey('characters.id'))
+
+    # relationships
+    combat = db.relationship('Combat', back_populates = 'statuses')
+    character = db.relationship('Character', back_populates = 'statuses')
+    # serialization rules
+    # serialize_rules = ('-combat.statuses', '-character.statuses', '-combat.player', '-combat.enemy', '-character.combat', '-character.known_techs' )
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'character',
+        'polymorphic_on': 'type'
+    }
+
+
+class StatChange (Status):
+    __tablename__ = 'stat_change'
+    
+    id = db.Column(db.Integer, db.ForeignKey('statuses.id'), primary_key=True)
+
+    affected_stat = db.Column(db.String)
+    amnt = db.Column(db.Integer)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'player'
+    }
