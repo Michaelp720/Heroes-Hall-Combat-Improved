@@ -30,12 +30,14 @@ class Character(db.Model, SerializerMixin):
     max_hp = db.Column(db.Integer)
     base_pwr = db.Column(db.Integer)
     base_def = db.Column(db.Integer)
+    base_mv = db.Column(db.Integer)
     spd = db.Column(db.Integer)
 
     #combat stat block
     crnt_hp = db.Column(db.Integer)
     temp_pwr = db.Column(db.Integer)
     temp_def = db.Column(db.Integer)
+    temp_mv = db.Column(db.Integer)
     order = db.Column(db.Integer)
 
     # add relationships
