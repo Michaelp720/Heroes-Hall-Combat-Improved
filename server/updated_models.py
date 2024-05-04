@@ -7,7 +7,7 @@ from config import db
 
 
 class Combat(db.Model, SerializerMixin):
-    __tablename__ = 'combats'
+    __tablename__ = 'combat'
 
     id = db.Column(db.Integer, primary_key=True)
     rnd = db.Column(db.Integer)
@@ -46,4 +46,24 @@ class Character(db.Model, SerializerMixin):
     # Add serialization rules
     # serialize_rules = ('-statuses.character', '-known_techs.character')
 
-class Technique(db.Model, SerializerMixin)
+class Technique(db.Model, SerializerMixin):
+    __tablename__ = 'techniques'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    hero_class = db.Column(db.String)
+
+    position = db.Column(db.String) #4321
+    range = db.Column(db.String) #1234, self, ally etc.
+    num_targets = db.Column(db.String)
+    target_type = db.Column(db.String) #adj, choice, repeat
+
+    effects_json = db.Column(db.String)
+
+
+    def __init__(self, effects):
+        self.effects_json = json.dumps(effects)
+
+    @property
+    def effects(self):
+        return json.loads(self.effects_json)
