@@ -13,7 +13,7 @@ class Combat(db.Model, SerializerMixin):
     player_id = db.Column(db.Integer, db.ForeignKey('player.id'))
     enemy_id = db.Column(db.Integer, db.ForeignKey('enemy.id'))
     rnd = db.Column(db.Integer)
-    turn = db.Column(db.Integer) #must be 1 or 2
+    turn = db.Column(db.Integer) #1-8
     player_next = db.Column(db.Boolean)
     enemy_action = db.Column(db.String)
     victor = db.Column(db.String)
