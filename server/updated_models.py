@@ -97,7 +97,8 @@ class Status(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     remaining_duration = db.Column(db.Integer)
     type = db.Column(db.String)
-    #types of Statuses inherit from Status- stat_change, dot, stance, stuns, paired (goaded, guarded, mind_meld), 
+    #types of Statuses inherit from Status- stat_change, dot, paired (goaded, guarded, mind_meld), others
+    stance = db.Column(db.Boolean)
 
     #foreign keys
     combat_id = db.Column(db.Integer, db.ForeignKey('combats.id'))
@@ -110,7 +111,7 @@ class Status(db.Model, SerializerMixin):
     # serialize_rules = ('-combat.statuses', '-character.statuses', '-combat.player', '-combat.enemy', '-character.combat', '-character.known_techs' )
 
     __mapper_args__ = {
-        'polymorphic_identity': 'character',
+        'polymorphic_identity': 'status',
         'polymorphic_on': 'type'
     }
 
@@ -119,10 +120,45 @@ class StatChange (Status):
     __tablename__ = 'stat_change'
     
     id = db.Column(db.Integer, db.ForeignKey('statuses.id'), primary_key=True)
-
+    
     affected_stat = db.Column(db.String)
     amnt = db.Column(db.Integer)
 
     __mapper_args__ = {
-        'polymorphic_identity': 'player'
+        'polymorphic_identity': 'stat_change'
+    }
+
+class DmgOverTime (Status):
+    __tablename__ = 'dmg_over_time'
+    
+    id = db.Column(db.Integer, db.ForeignKey('statuses.id'), primary_key=True)
+    name = db.Column(db.String)
+    amnt = db.Column(db.Integer)
+
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'dmg_over_time'
+    }
+
+class Paired (Status):
+    __tablename__ = 'paired'
+    
+    id = db.Column(db.Integer, db.ForeignKey('statuses.id'), primary_key=True)
+    name = db.Column(db.String)
+    target_id = db.Column(db.Integer)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'paired'
+    }
+
+class Other (Status):
+    __tablename__ = 'other'
+    
+    id = db.Column(db.Integer, db.ForeignKey('statuses.id'), primary_key=True)
+    name = db.Column(db.String)
+    
+    stun = db.Column(db.Boolean)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'other'
     }
