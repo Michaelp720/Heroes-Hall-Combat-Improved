@@ -1,16 +1,18 @@
 
 
 class Effect:
-    def __init__(self, description, amnt_dur, chance = False, mod = 1, status = False):
+    def __init__(self, description, amnt = 0, dur = 0, chance = 0, mod = 1, stat = None, status = None):
         self.description = description
-        self.amnt_dur = amnt_dur
+        self.amnt = amnt
+        self.dur = dur
         self.chance = chance
         self.mod = mod
+        self.stat = stat
         self.status = status #dot, paired, other, stat change
 
-    #for calculating effects that use pwr
+    #for calculating effects that use pwr ie dmg, heal, dot
     def calculate_amnt(self, pwr):
-        return self.mod * pwr + amnt_dur
+        return self.mod * pwr + amnt
         
 
 
@@ -25,7 +27,7 @@ Technique(
     target_type = "choice",
     effects = [
         Effect("Dmg", -2),
-        Effect("Brn", -3, False, 1, "dot")
+        Effect("Brn", -3, 0, False, 1, "dot")
      ]
 ),
 
@@ -54,4 +56,4 @@ Technique(
         Effect("Dmg", 4),
         Effect("Knockback", 1, 4)
     ]
-),
+)

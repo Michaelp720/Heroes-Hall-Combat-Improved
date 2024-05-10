@@ -59,7 +59,7 @@ class Technique(db.Model, SerializerMixin):
     hero_class = db.Column(db.String)
 
     position = db.Column(db.String) #4321
-    range = db.Column(db.String) #1234, self, ally etc.
+    range = db.Column(db.String) #1234, self, ally, ally/self etc.
     num_targets = db.Column(db.String)
     target_type = db.Column(db.String) #adj, choice, repeat
 
